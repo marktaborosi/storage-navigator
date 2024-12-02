@@ -1,0 +1,24 @@
+.block .img {
+  background: transparent url("../../public/images/icons/extensions.png") no-repeat 0 0;
+}
+
+// File type icons
+.jpg, .jpeg, .gif, .png { background-position: -50px 0 !important; }
+.pdf { background-position: -100px 0 !important; }
+.txt, .rtf { background-position: -150px 0 !important; }
+.xls, .xlsx { background-position: -200px 0 !important; }
+.ppt, .pptx { background-position: -250px 0 !important; }
+.doc, .docx { background-position: -300px 0 !important; }
+.zip, .rar, .tar, .gzip { background-position: -350px 0 !important; }
+.swf { background-position: -400px 0 !important; }
+.fla { background-position: -450px 0 !important; }
+.mp3 { background-position: -500px 0 !important; }
+.wav { background-position: -550px 0 !important; }
+.mp4 { background-position: -600px 0 !important; }
+.mov, .aiff, .m2v, .avi, .pict, .qif { background-position: -650px 0 !important; }
+.wmv, .avi, .mpg { background-position: -700px 0 !important; }
+.flv, .f2v { background-position: -750px 0 !important; }
+.psd { background-position: -800px 0 !important; }
+.ai { background-position: -850px 0 !important; }
+.html, .xhtml, .dhtml, .php, .asp, .css, .js, .inc { background-position: -900px 0 !important; }
+.dir { background-position: -950px 0 !important; }

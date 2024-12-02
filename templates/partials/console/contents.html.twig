@@ -1,0 +1,41 @@
+<div class="panel">
+    <h2>Panel</h2>
+    <div class="content">
+        <table>
+            <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Size</th>
+                <th>Modify Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if back_path is not null %}
+                <tr {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ back_path }}')"{% endif%} class="dir">
+                    <td>/..</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+            {% for file in files %}
+                {% if file.type == "dir" %}
+                <tr {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ file.path }}{{ file.name }}')" {% endif%} class="dir">
+                    <td>/{{ file.name }}</td>
+                    <td>&lt;DIR&gt;</td>
+                    <td>{{  format(file.last_modified) }}</td>
+                </tr>
+                {% else %}
+                <tr {% if disable_file_download == false %}onClick="submitDownloadFile(event, '{{ file.directory_path }}{{ file.filename }}')" {% endif%} class="file">
+                    <td>{{ file.filename }}</td>
+                    <td>{{ file.size.value }} {{ file.size.unit }}</td>
+                    <td>{{  format(file.last_modified) }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="command-line">
+</div>

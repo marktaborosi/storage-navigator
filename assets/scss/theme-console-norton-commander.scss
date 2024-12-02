@@ -1,0 +1,36 @@
+@import 'console-common';
+
+$backgroundColor: #0000af;
+$textColor: #4cf3fb;
+$darkerTextColor: #00a8af;
+$headerTextColor: #f4f454;
+
+body, html {
+  background-color: $backgroundColor;
+  color: $textColor;
+}
+
+thead {
+  color: $headerTextColor;
+  border-bottom: none;
+}
+
+.panel {
+  border: 1px solid $textColor;
+}
+
+.panel h2 {
+  border-bottom: 1px solid $textColor;
+}
+
+.content th {
+  border-bottom: 1px solid $textColor;
+}
+
+.content tr:hover td {
+  background-color: $darkerTextColor;
+}
+
+.command-line {
+  border-top: 1px solid $textColor;
+}

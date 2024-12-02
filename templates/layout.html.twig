@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Storage Browser{% endblock %}</title>
+    {% block head %}
+        {% if 'console' in theme_path %}
+            {% include 'partials/console/header.html.twig' %}
+        {% else %}
+            {% include 'partials/basic/header.html.twig' %}
+        {% endif %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% if 'console' in theme_path %}
+        {% include 'partials/console/contents.html.twig' %}
+    {% else %}
+        {% include 'partials/basic/contents.html.twig' %}
+    {% endif %}
+{% endblock %}
+<script src="../public/js/browser-navigation.min.js"></script>
+{% if 'console' in theme_path %}
+    <script src="../public/js/console.min.js"></script>
+{% endif %}
+</body>
+<footer>
+    {% block footer %}
+        {% if 'console' in theme_path %}
+            {% include 'partials/console/footer.html.twig' %}
+        {% else %}
+            {% include 'partials/basic/footer.html.twig' %}
+        {% endif %}
+    {% endblock %}
+</footer>
+</html>

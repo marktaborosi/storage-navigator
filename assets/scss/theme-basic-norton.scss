@@ -1,0 +1,97 @@
+@import 'basic-common';
+@import 'basic-file-types';
+
+body {
+  background: #020255;
+  color: #FFFF00;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.wrap {
+  max-width: 100%;
+  width: 500px;
+  margin: 20px auto;
+  background: #000080; /* Darker background for the content box */
+  color: #FFFFFF; /* White text inside the box */
+  padding: 40px;
+  border-radius: 3px;
+  text-align: left;
+  border: 1px solid #CCCCCC; /* Light grey border */
+}
+
+@media only screen and (max-width: 700px) {
+  .wrap {
+    padding: 15px;
+  }
+}
+
+h1 {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #FFFF00;
+}
+
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #00FFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.note {
+  padding: 0 5px 25px 0;
+  font-size: 80%;
+  color: #FFFF00;
+  line-height: 18px;
+}
+
+.block {
+  clear: both;
+  min-height: 50px;
+  border-top: solid 1px #CCCCCC; /* Light grey border between blocks */
+}
+
+.block:first-child {
+  border: none;
+}
+
+.block .img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.block .file {
+  padding-bottom: 5px;
+}
+
+.block .data {
+  line-height: 1.3em;
+  color: #FFFFFF; /* White text for data */
+}
+
+.block a {
+  display: block;
+  padding: 20px;
+  transition: all 0.35s;
+}
+
+.block a:hover, .block a.open {
+  text-decoration: none;
+  background: #0055AA; /* Bright blue highlight on hover */
+  color: #FFFF00; /* Yellow text on hover */
+}

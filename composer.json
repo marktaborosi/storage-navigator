@@ -1,0 +1,35 @@
+{
+  "name": "marktaborosi/storage-navigator",
+  "description": "A simple lightweight storage/file browser and navigator library with rendering options.",
+  "type": "library",
+  "version": "1.1.0",
+  "require": {
+    "php": ">=8.2",
+    "twig/twig": "^3.11",
+    "league/flysystem": "^3.28",
+    "ext-zip": "*",
+    "ext-ftp": "*",
+    "phpseclib/phpseclib": "^3.0",
+    "wapmorgan/unified-archive": "^1.2"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^5.4",
+    "phpunit/phpunit": "^11.3",
+    "php-mock/php-mock": "^2.5",
+    "mockery/mockery": "^1.6"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Marktaborosi\\StorageBrowser\\": "src/",
+      "Marktaborosi\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Mark Taborosi",
+      "email": "mark.taborosi@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable"
+}

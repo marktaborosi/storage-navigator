@@ -1,0 +1,102 @@
+@import 'basic-common';
+@import 'basic-file-types';
+
+body {
+  background: #F0F0F5;
+  color: #333333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.wrap {
+  max-width: 100%;
+  width: 600px;
+  margin: 20px auto;
+  background: #FFFFFF;
+  color: #333333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #DDDDDD;
+}
+
+@media only screen and (max-width: 700px) {
+  .wrap {
+    padding: 15px;
+  }
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+}
+
+a {
+  color: #007AFF;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.note {
+  padding: 0 5px 25px 0;
+  font-size: 0.9em;
+  color: #666666;
+  line-height: 1.4;
+}
+
+.block {
+  clear: both;
+  min-height: 60px;
+  border-bottom: solid 1px #E0E0E0;
+  padding: 10px 0;
+}
+
+.block:first-child {
+  border-top: none;
+}
+
+.block .img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.block .file {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.block .data {
+  line-height: 1.2em;
+  color: #888888;
+}
+
+.block a {
+  display: block;
+  padding: 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.block a:hover, .block a.open {
+  background: #F0F8FF;
+  color: #007AFF;
+}

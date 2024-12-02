@@ -1,0 +1,94 @@
+@import 'basic-common';
+@import 'basic-file-types';
+
+body {
+  background: #dadada;
+  font-family: "Lato", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.wrap {
+  max-width: 100%;
+  min-width: 400px;
+  width: fit-content;
+  margin: 20px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 3px;
+  text-align: left;
+}
+
+@media only screen and (max-width: 700px) {
+  .wrap {
+    padding: 15px;
+  }
+}
+
+h1 {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #666;
+}
+
+a {
+  color: #399ae5;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #206ba4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.note {
+  padding: 0 5px 25px 0;
+  font-size: 80%;
+  color: #666;
+  line-height: 18px;
+}
+
+.block {
+  clear: both;
+  min-height: 50px;
+  border-top: solid 1px #ECE9E9;
+}
+
+.block:first-child {
+  border: none;
+}
+
+.block .img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.block .file {
+  padding-bottom: 5px;
+}
+
+.block .data {
+  line-height: 1.3em;
+  color: #666;
+}
+
+.block a {
+  display: block;
+  padding: 20px;
+  transition: all 0.35s;
+}
+
+.block a:hover, .block a.open {
+  text-decoration: none;
+  background: #efefef;
+}

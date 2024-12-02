@@ -1,0 +1,97 @@
+@import 'basic-common';
+@import 'basic-file-types';
+
+body {
+  background: #000000;
+  color: #FFFFFF;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.wrap {
+  max-width: 100%;
+  width: 500px;
+  margin: 20px auto;
+  background: #1A1A1A;
+  color: #FFFFFF;
+  padding: 40px;
+  border-radius: 3px;
+  text-align: left;
+  border: 1px solid #333333;
+}
+
+@media only screen and (max-width: 700px) {
+  .wrap {
+    padding: 15px;
+  }
+}
+
+h1 {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #00FF00;
+  text-decoration: none;
+}
+
+.note {
+  padding: 0 5px 25px 0;
+  font-size: 80%;
+  color: #00FF00;
+  line-height: 18px;
+}
+
+.block {
+  clear: both;
+  min-height: 50px;
+  border-top: solid 1px #333333;
+}
+
+.block:first-child {
+  border: none;
+}
+
+.block .img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.block .file {
+  padding-bottom: 5px;
+}
+
+.block .data {
+  line-height: 1.3em;
+  color: #FFFFFF;
+}
+
+.block a {
+  display: block;
+  padding: 20px;
+  transition: all 0.35s;
+}
+
+.block a:hover, .block a.open {
+  text-decoration: none;
+  background: #555555;
+  color: #00FF00;
+}

@@ -1,0 +1,48 @@
+
+<h1>Storage Browser</h1>
+<div class="wrap">
+    {% if back_path is not null %}
+        <div class="block">
+            <a {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ back_path }}')"{% endif %}
+               class="dir">
+                <div class="img dir"></div>
+                <div class="name">
+                    <div class="file fs-1-2 bold">..</div>
+                    <div class="data upper size fs-0-7"><span class="bold">Back</span>
+                        to parent folder
+                    </div>
+                    <div class="data upper size fs-0-7"><span class="bold"></span>
+                        <span class="fs-0-8 bold"></span></div>
+                </div>
+            </a>
+        </div>
+    {% endif %}
+    {% for file in files %}
+        <div class="block">
+            {% if file.type == "dir" %}
+            <a {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ file.path }}{{ file.name }}')"{% endif %}
+               class="{{ file.extension | default(file.type) }}">
+                {% else %}
+                <a {% if disable_file_download == false %}onClick="submitDownloadFile(event, '{{ file.directory_path }}{{ file.filename }}')"{% endif %}
+                   class="{{ file.extension | default(file.type) }}">
+                    {% endif %}
+                    <div class="img {{ file.extension | default(file.type) }}"></div>
+                    <div class="name">
+                        {% if file.type == "dir" %}
+                            <div class="file fs-1-2 bold">{{ file.name }}</div>
+                            <div class="data upper modified fs-0-7"><span
+                                        class="bold">Last modified:</span> {{ format(file.last_modified) }}</div>
+                        {% else %}
+                            <div class="file fs-1-2 bold">{{ file.filename }}</div>
+                            <div class="data upper size fs-0-7"><span
+                                        class="bold">Size:</span> {{ file.size.value }}
+                                <span class="fs-0-8 bold">{{ file.size.unit }}</span></div>
+                            <div class="data upper modified fs-0-7"><span
+                                        class="bold">Last modified:</span> {{ format(file.last_modified) }}</div>
+                        {% endif %}
+                    </div>
+                </a>
+            </a>
+        </div>
+    {% endfor %}
+</div>

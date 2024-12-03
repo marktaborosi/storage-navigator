@@ -1,6 +1,9 @@
 
 # Storage Navigator
 
+[![Latest Version](https://img.shields.io/github/release/marktaborosi/storage-navigator.svg?style=flat-square)](https://github.com/marktaborosi/storage-navigator/releases)
+
+
 A simple, lightweight, and universal storage/file browser and navigator library with rendering options.
 
 This library allows accessing various storage systems via adapters and rendering their contents using different renderers. It supports navigating and displaying storage contents across various platforms, including FTP, SFTP, local filesystems, and more.

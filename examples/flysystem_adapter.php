@@ -17,7 +17,7 @@ $filesystem = new Filesystem($localAdapter);
 $adapter = new FlysystemAdapter($filesystem);
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-midnight-commander');
+$renderer = new HtmlRenderer(themePath: 'console-midnight-commander');
 
 // Create config
 $config = new FileBrowserConfig([

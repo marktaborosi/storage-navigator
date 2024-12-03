@@ -15,7 +15,7 @@ try {
 }
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-norton-commander');
+$renderer = new HtmlRenderer(themePath: 'console-norton-commander');
 
 // Create config
 $config = new FileBrowserConfig([

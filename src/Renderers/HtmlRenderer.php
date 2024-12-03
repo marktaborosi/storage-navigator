@@ -18,8 +18,8 @@ use Twig\TwigFunction;
  * Class HtmlRenderer
  *
  * Renders the file browser output as HTML using the Twig templating engine.
- * This renderer uses a configurable theme for styling the output and can optionally
- * disable navigation and file download features.
+ * This renderer allows customization of themes and supports enabling or disabling
+ * navigation and file download features.
  *
  * @package Marktaborosi\StorageBrowser\Renderers
  * @pattern Strategy
@@ -36,45 +36,54 @@ class HtmlRenderer implements StorageBrowserRendererInterface
     /**
      * @var string The name or path of the theme used for styling.
      */
-    private string $theme;
+    private string $themePath;
 
     /**
-     * @var string The full path to the theme's CSS file.
+     * @var string The contents of the theme's CSS file.
      */
-    private string $themeHtmlPath;
+    private string $cssContents;
 
     /**
-     * @var bool Flag to disable navigation functionality.
+     * @var bool Whether navigation functionality is disabled.
      */
     private bool $disableNavigation;
 
     /**
-     * @var bool Flag to disable file download functionality.
+     * @var bool Whether file download functionality is disabled.
      */
     private bool $disableFileDownload;
 
     /**
-     * HtmlRenderer constructor.
+     * Constructor for the HtmlRenderer.
      *
-     * Initializes the Twig environment and sets the theme for rendering.
+     * Sets up the Twig environment and initializes the theme.
      *
-     * @param string $theme The theme name or full theme path. If a full path is provided, it will be used directly. Otherwise, the theme name is resolved to a CSS file in the 'assets' directory.
-     * @param bool $disableNavigation Flag to disable navigation functionality.
-     * @param bool $disableFileDownload Flag to disable file download functionality.
+     * @param string $themePath The theme name or path.
+     * @param bool $disableNavigation Whether navigation is disabled.
+     * @param bool $disableFileDownload Whether file downloads are disabled.
+     * @throws LoaderError If there is an issue loading templates.
+     * @throws RuntimeError If a runtime error occurs.
+     * @throws SyntaxError If there is a syntax error in a template.
      */
     public function __construct(
-        string $theme,
-        bool   $disableNavigation = false,
-        bool   $disableFileDownload = false
-    )
-    {
+        string $themePath,
+        bool $disableNavigation = false,
+        bool $disableFileDownload = false
+    ) {
         $loader = new FilesystemLoader(realpath(__DIR__ . '/../../templates'));
         $this->twig = new Environment($loader);
 
-        if (file_exists($theme)) {
-            $this->themeHtmlPath = $theme;
+        $fullPath = __DIR__ . '/../../public/css/' . $themePath . '.min.css';
+        if (file_exists($themePath)) {
+            $this->cssContents = file_get_contents($themePath);
+            $this->themePath = $themePath;
+        } elseif (file_exists($fullPath)) {
+            $this->cssContents = file_get_contents($fullPath);
+            $this->themePath = $fullPath;
         } else {
-            $this->themeHtmlPath = '/../public/css/' . $theme . '.min.css';
+            http_response_code(404);
+            echo $this->twig->render("error/theme_not_found.html.twig", ["theme_path" => $themePath]);
+            exit;
         }
 
         $this->disableNavigation = $disableNavigation;
@@ -82,47 +91,46 @@ class HtmlRenderer implements StorageBrowserRendererInterface
     }
 
     /**
-     * Renders the file browser output as HTML using Twig.
+     * Renders the file browser as HTML.
      *
-     * @param RenderData $data Data needed for rendering, including location, files, and configuration.
+     * @param RenderData $data Data to be rendered, including file structure and paths.
      * @return void
-     * @throws LoaderError If the template cannot be found.
-     * @throws RuntimeError If an error occurs during template rendering.
-     * @throws SyntaxError If there's a syntax error in the template.
+     * @throws LoaderError If there is an issue loading templates.
+     * @throws RuntimeError If a runtime error occurs.
+     * @throws SyntaxError If there is a syntax error in a template.
      */
     public function render(RenderData $data): void
     {
-        // Theme not found
-        if (!$this->themeExists()) {
-            http_response_code(404);
-            echo $this->twig->render("error/theme_not_found.html.twig", ["theme_path" => $this->themeHtmlPath]);
-        } else {
-            // Prepare dataset
-            $dateFormat = $data->getConfiguration()->get("date_format");
-            $data = [
-                'current_path' => $data->getCurrentPath(),
-                'root_path' => $data->getRootPath(),
-                'back_path' => $this->getBackPath($data->getCurrentPath(), $data->getRootPath()),
-                'theme_path' => $this->themeHtmlPath,
-                'files' => $data->getStructure()->toArray(),
-                'disable_navigation' => $this->disableNavigation,
-                'disable_file_download' => $this->disableFileDownload
-            ];
+        $dateFormat = $data->getConfiguration()->get("date_format");
+        $renderData = [
+            'current_path' => $data->getCurrentPath(),
+            'root_path' => $data->getRootPath(),
+            'back_path' => $this->getBackPath($data->getCurrentPath(), $data->getRootPath()),
+            'theme_path' => $this->themePath,
+            'css_contents' => $this->cssContents,
+            'files' => $data->getStructure()->toArray(),
+            'disable_navigation' => $this->disableNavigation,
+            'disable_file_download' => $this->disableFileDownload
+        ];
 
-            // Add date formatting function
-            $this->twig->addFunction(new TwigFunction("format", function (int $time) use ($dateFormat) {
-                return date($dateFormat, $time);
-            }));
-
-            // Render layout
-            echo $this->twig->render('layout.html.twig', $data);
+        if (!$this->disableNavigation) {
+            $renderData['browser_navigation_js_contents'] = file_get_contents(__DIR__ . '/../../public/js/browser-navigation.min.js');
         }
+        if (!$this->disableFileDownload) {
+            $renderData['console_js_contents'] = file_get_contents(__DIR__ . '/../../public/js/console.min.js');
+        }
+
+        $this->twig->addFunction(new TwigFunction("format", function (int $time) use ($dateFormat) {
+            return date($dateFormat, $time);
+        }));
+
+        echo $this->twig->render('layout.html.twig', $renderData);
     }
 
     /**
-     * Returns the navigation handler responsible for handling navigation-related operations.
+     * Retrieves the navigation handler for managing navigation operations.
      *
-     * @return StorageBrowserNavigationHandlerInterface The navigation handler instance for managing HTTP-based navigation.
+     * @return StorageBrowserNavigationHandlerInterface The navigation handler.
      */
     public function navigationHandler(): StorageBrowserNavigationHandlerInterface
     {
@@ -130,65 +138,32 @@ class HtmlRenderer implements StorageBrowserRendererInterface
     }
 
     /**
-     * Retrieves the parent directory path for navigating back.
+     * Gets the parent directory for back navigation.
      *
-     * @param string $currentPath The current directory path.
-     * @param string $rootPath The root directory path.
-     * @return string|null The parent directory path or null if at the root directory.
+     * @param string $currentPath The current path.
+     * @param string $rootPath The root path.
+     * @return string|null The parent directory path or null if at the root.
      */
     private function getBackPath(string $currentPath, string $rootPath): ?string
     {
         if ($this->getNormalizedDirname($currentPath) === $this->getNormalizedDirname($rootPath)) {
             return null;
         }
+
         $dir = dirname($currentPath);
-        if ($dir === '.' || $dir === './' || $dir === "../" || $dir === "\\") {
-            $dir = "";
-        }
-        return $dir;
+        return ($dir === '.' || $dir === './' || $dir === "../" || $dir === "\\") ? "" : $dir;
     }
 
     /**
-     * Checks if the theme file exists.
+     * Gets a list of available themes from the CSS directory.
      *
-     * @return bool True if the theme file exists, false otherwise.
-     */
-    private function themeExists(): bool
-    {
-        if (str_contains($this->themeHtmlPath, "../public/css")) {
-            $fullPath = __DIR__ . str_replace("/../", "/../../", $this->themeHtmlPath);
-            if (!file_exists($fullPath)) {
-                return false;
-            }
-            return true;
-        }
-        return true;
-    }
-
-    /**
-     * Retrieves a list of available themes by listing all .css files and removing the .min.css suffix.
-     *
-     * @return array List of theme names without the .min.css suffix.
+     * @return array The list of theme names without the .min.css suffix.
      */
     public final static function getThemeList(): array
     {
-        // Get all .css files in the directory
         $files = glob(realpath(__DIR__ . "/../../public/css/") . DIRECTORY_SEPARATOR . "*.css");
-
-        $cssFiles = [];
-
-        // Iterate through the files
-        foreach ($files as $file) {
-            // Get the base name of the file (without path)
-            $fileName = basename($file);
-
-            // Remove .min.css if it exists, otherwise, keep the original name
-            $fileNameWithoutMin = preg_replace('/\.min\.css$/', '', $fileName);
-
-            // Add the processed file name to the array
-            $cssFiles[] = $fileNameWithoutMin;
-        }
-
-        return $cssFiles;
+        return array_map(function ($file) {
+            return preg_replace('/\.min\.css$/', '', basename($file));
+        }, $files);
     }
 }

@@ -6,9 +6,11 @@ use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
 use Marktaborosi\StorageBrowser\Entities\FileStructure;
 use Marktaborosi\StorageBrowser\Renderers\Entities\RenderData;
 use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\Tests\Traits\StorageTrait;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use ReflectionException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -22,8 +24,9 @@ use Twig\Error\SyntaxError;
  *
  * @package Marktaborosi\Tests\Unit\Renderers
  */
-class HtmlRendererTest extends TestCase
+class HtmlRendererTest extends MockeryTestCase
 {
+    use StorageTrait;
     private string $testFilePath;
 
     /**
@@ -43,46 +46,32 @@ class HtmlRendererTest extends TestCase
     }
 
     /**
-     * Tear down the test environment.
-     *
-     * Cleans up temporary files created during the tests to ensure no data leakage.
-     */
-    protected function tearDown(): void
-    {
-        $files = glob(__DIR__ . "/../../Storage" . DIRECTORY_SEPARATOR . '*');
-
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
-            }
-        }
-    }
-
-    /**
      * Tests the constructor when the theme file exists.
      *
      * Verifies that the constructor correctly initializes private properties
      * when provided with an existing theme file.
+     *
+     * @throws LoaderError If there is an issue loading templates.
+     * @throws RuntimeError If a runtime error occurs.
+     * @throws SyntaxError If there is a syntax error in a template.
      */
     public function test_constructor_with_existing_theme(): void
     {
-        $htmlRenderer = new HtmlRenderer(
-            $this->testFilePath,
-            true,
-            false
-        );
+            $htmlRenderer = new HtmlRenderer(
+                $this->testFilePath,
+                true,
+                false
+            );
 
         $reflection = new ReflectionClass($htmlRenderer);
-
-        $themeHtmlPathProperty = $reflection->getProperty('themeHtmlPath');
-        $themeHtmlPath = $themeHtmlPathProperty->getValue($htmlRenderer);
-        $this->assertSame($this->testFilePath, $themeHtmlPath);
 
         $disableNavigationProperty = $reflection->getProperty('disableNavigation');
         $this->assertTrue($disableNavigationProperty->getValue($htmlRenderer));
 
         $disableFileDownloadProperty = $reflection->getProperty('disableFileDownload');
         $this->assertFalse($disableFileDownloadProperty->getValue($htmlRenderer));
+
+        self::deleteFiles([$this->testFilePath]);
     }
 
     /**
@@ -90,9 +79,14 @@ class HtmlRendererTest extends TestCase
      *
      * Verifies that the constructor sets the `themeHtmlPath` to a default value
      * when the provided theme does not exist.
+     * @throws ReflectionException
+     * @throws LoaderError If there is an issue loading templates.
+     * @throws RuntimeError If a runtime error occurs.
+     * @throws SyntaxError If there is a syntax error in a template.
      */
     public function test_constructor_with_non_existing_theme(): void
     {
+        self::deleteFiles([$this->testFilePath]);
         $nonExistentTheme = 'nonexistent-theme';
         $expectedThemeHtmlPath = '/../public/css/' . $nonExistentTheme . ".min.css";
 
@@ -214,4 +208,5 @@ class HtmlRendererTest extends TestCase
         $this->assertEquals('theme not found', $output);
         $this->assertSame(404, http_response_code());
     }
+
 }

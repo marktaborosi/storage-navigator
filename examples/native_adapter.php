@@ -19,7 +19,7 @@ $config = new FileBrowserConfig([
 
 // Create renderer
 $renderer = new HtmlRenderer(
-    theme: "console-norton-commander",
+    themePath: "console-norton-commander",
     disableNavigation: false,
     disableFileDownload: false
 );

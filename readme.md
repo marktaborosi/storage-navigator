@@ -48,9 +48,9 @@ Check themes at the end of documentation.
 
 You can install **Storage Navigator** via Composer:
 
-bash
+```bash
 composer require marktaborosi/storage-navigator
-
+````
 
 ## Usage
 

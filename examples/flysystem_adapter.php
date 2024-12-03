@@ -22,8 +22,8 @@ $renderer = new HtmlRenderer(theme: 'console-midnight-commander');
 // Create config
 $config = new FileBrowserConfig([
     'date_format' => "M d Y H:i",
-    'ignore_filenames' => ["rars"],
-    'ignore_extensions' => ['zip','php','html']
+    'ignore_filenames' => ["file.log"], // Exclude file.log
+    'ignore_extensions' => ['zip','php','html'] // Excludes extensions
 ]);
 
 

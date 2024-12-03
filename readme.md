@@ -98,8 +98,8 @@ $adapter = new FlysystemAdapter($filesystem);
 $renderer = new HtmlRenderer(theme: 'console-midnight-commander');
 $config = new FileBrowserConfig([
     'date_format' => "M d Y H:i", // Format for displaying file modification dates (same format as PHP's `date()` function)
-    'ignore_filenames' => ["rars"], // Ignore files named "rars"
-    'ignore_extensions' => ['zip', 'php', 'html'] // Ignore files with these extensions
+    'ignore_filenames' => ["file.log"], // Exclude file.log from list
+    'ignore_extensions' => ['zip', 'php', 'html'] // Exclude files with these extensions
 ]);
 
 $browser = new StorageBrowser(

@@ -61,22 +61,6 @@ This library allows accessing various storage systems via adapters and rendering
 - **Console Renderer**: A simple CLI-based renderer for listing files, without navigation support.
 - **Null Renderer**: A placeholder renderer, useful for debugging or specific use cases.
 
-## HTML Renderer Themes
-
-The HTML renderer supports multiple skins. Here are some of the available themes:
-
-- **basic-dark**
-- **basic-light**
-- **basic-mac**
-- **basic-norton**
-- **basic-terminal**
-- **console-hacker**
-- **console-midnight-commander**
-- **console-norton-commander**
-
-Each theme provides a different look and feel for the file browser. 
-Check themes at the end of documentation.
-
 ## Installation
 
 You can install **Storage Navigator** via Composer:
@@ -301,6 +285,8 @@ You can configure various options for the file browser, such as:
 
 ## Console Renderer
 
+*Important! The Console renderer does not have navigation functionality.*
+
 To use the Console Renderer in a CLI environment, you can instantiate it as follows:
 
 ```php
@@ -315,6 +301,10 @@ It looks structurally similar to a Windows DIR command:
 </div>
 
 ## HTTP Renderer Themes
+
+HTTP Renderer has navigation and file download support.
+Each theme provides a different look and feel for the file browser.
+Check themes at the end of documentation.
 
 Below are some screenshots of the available themes:
 

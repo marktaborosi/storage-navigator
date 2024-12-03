@@ -12,7 +12,7 @@ trait StorageTrait
     /**
      * The root storage location used for file and directory operations.
      */
-    const ROOT_STORAGE_LOCATION = __DIR__. DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR. 'Storage'. DIRECTORY_SEPARATOR;
+    const ROOT_STORAGE_LOCATION = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . 'Storage' . DIRECTORY_SEPARATOR;
 
     /**
      * Get the absolute path to the root storage directory.
@@ -21,6 +21,7 @@ trait StorageTrait
      */
     public static function rootStoragePath(): string
     {
+        self::ensureRootStoragePathExists();
         return realpath(self::ROOT_STORAGE_LOCATION) . DIRECTORY_SEPARATOR;
     }
 
@@ -102,4 +103,21 @@ trait StorageTrait
             rmdir($directory);
         }
     }
+
+    /**
+     * Ensures that the root storage path exists by creating it if necessary.
+     *
+     * This method checks if the directory defined by the `ROOT_STORAGE_LOCATION` constant exists.
+     * If it does not, it attempts to create the directory with the appropriate permissions (0777).
+     * The method will create the directory recursively if needed.
+     *
+     * @return void This method does not return any value.
+     */
+    private static function ensureRootStoragePathExists(): void
+    {
+        if (!is_dir(self::ROOT_STORAGE_LOCATION)) {
+            mkdir(self::ROOT_STORAGE_LOCATION, 0777, true);
+        }
+    }
+
 }

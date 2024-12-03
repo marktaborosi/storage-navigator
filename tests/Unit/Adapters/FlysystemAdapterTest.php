@@ -8,7 +8,7 @@ use League\Flysystem\DirectoryListing;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
-use Marktaborosi\StorageBrowser\Adapters\FilesystemAdapter;
+use Marktaborosi\StorageBrowser\Adapters\FlysystemAdapter;
 use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
 use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
 use Marktaborosi\StorageBrowser\Entities\FileAttribute;
@@ -26,12 +26,12 @@ use PHPUnit\Framework\TestCase;
  *
  * @package Marktaborosi\Tests\Unit\Adapter
  */
-class FilesystemAdapterTest extends TestCase
+class FlysystemAdapterTest extends TestCase
 {
     use StorageTrait;
 
     private FilesystemOperator|MockObject $filesystemMock;
-    private FilesystemAdapter $adapterWithMockedFilesystem;
+    private FlysystemAdapter $adapterWithMockedFlysystem;
 
     /**
      * Sets up the test environment before each test.
@@ -44,7 +44,7 @@ class FilesystemAdapterTest extends TestCase
     protected function setUp(): void
     {
         $this->filesystemMock = $this->createMock(FilesystemOperator::class);
-        $this->adapterWithMockedFilesystem = new FilesystemAdapter($this->filesystemMock);
+        $this->adapterWithMockedFlysystem = new FlysystemAdapter($this->filesystemMock);
     }
 
     /**
@@ -92,7 +92,7 @@ class FilesystemAdapterTest extends TestCase
             ->with('file1.txt')->willReturn(100);
 
         // Test the adapter's method
-        $structure = $this->adapterWithMockedFilesystem->getFileStructure("");
+        $structure = $this->adapterWithMockedFlysystem->getFileStructure("");
 
         // Assertions
         $this->assertInstanceOf(FileStructure::class, $structure);
@@ -118,7 +118,7 @@ class FilesystemAdapterTest extends TestCase
             ->with('some/path/file.txt')
             ->willReturn(false);
 
-        $exists = $this->adapterWithMockedFilesystem->fileOrDirectoryExists('some/path/file.txt');
+        $exists = $this->adapterWithMockedFlysystem->fileOrDirectoryExists('some/path/file.txt');
         $this->assertTrue($exists);
     }
 
@@ -137,7 +137,7 @@ class FilesystemAdapterTest extends TestCase
             ->with('some/path')
             ->willReturn(true);
 
-        $exists = $this->adapterWithMockedFilesystem->fileOrDirectoryExists('some/path');
+        $exists = $this->adapterWithMockedFlysystem->fileOrDirectoryExists('some/path');
         $this->assertTrue($exists);
     }
 
@@ -158,7 +158,7 @@ class FilesystemAdapterTest extends TestCase
             ->willThrowException($filesystemExceptionMock);
 
         $this->expectException(FilesystemException::class);
-        $this->adapterWithMockedFilesystem->getFileStructure('some/path');
+        $this->adapterWithMockedFlysystem->getFileStructure('some/path');
     }
 
     /**
@@ -176,7 +176,7 @@ class FilesystemAdapterTest extends TestCase
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("File does not exist.");
-        $this->adapterWithMockedFilesystem->downloadFile($filePath);
+        $this->adapterWithMockedFlysystem->downloadFile($filePath);
     }
 
     /**
@@ -214,7 +214,7 @@ class FilesystemAdapterTest extends TestCase
             ->willReturn($stream);
 
         ob_start();
-        $this->adapterWithMockedFilesystem->downloadFile($filePath);
+        $this->adapterWithMockedFlysystem->downloadFile($filePath);
         $output = ob_get_clean();
 
         $this->assertStringContainsString('File content', $output);

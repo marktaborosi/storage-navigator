@@ -22,7 +22,7 @@ use Marktaborosi\StorageBrowser\Traits\PathHelperTrait;
  * @package Marktaborosi\StorageBrowser\Adapters
  * @pattern Adapter / Facade
  */
-class FilesystemAdapter implements StorageBrowserAdapterInterface
+class FlysystemAdapter implements StorageBrowserAdapterInterface
 {
     use PathHelperTrait;
 

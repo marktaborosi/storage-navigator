@@ -2,7 +2,7 @@
 
 use League\Flysystem\Filesystem;
 use League\Flysystem\Local\LocalFilesystemAdapter;
-use Marktaborosi\StorageBrowser\Adapters\FilesystemAdapter;
+use Marktaborosi\StorageBrowser\Adapters\FlysystemAdapter;
 use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
 use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
 use Marktaborosi\StorageBrowser\StorageBrowser;
@@ -14,7 +14,7 @@ $localAdapter = new LocalFilesystemAdapter(__DIR__."/storage/");
 $filesystem = new Filesystem($localAdapter);
 
 // Create filesystem adapter
-$adapter = new FilesystemAdapter($filesystem);
+$adapter = new FlysystemAdapter($filesystem);
 
 // Create renderer
 $renderer = new HtmlRenderer(theme: 'console-midnight-commander');

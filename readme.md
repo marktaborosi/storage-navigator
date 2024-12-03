@@ -274,7 +274,7 @@ You can configure various options for the file browser, such as:
   
 - **ignore_extensions**: A list of file extensions to exclude. For instance, you might exclude zip files or certain types of configuration files by adding them to this array.
 
-### Console Renderer
+## Console Renderer
 
 To use the Console Renderer in a CLI environment, you can instantiate it as follows:
 

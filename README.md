@@ -108,7 +108,7 @@ $config = new FileBrowserConfig([
 
 // Create renderer
 $renderer = new HtmlRenderer(
-    theme: "console-norton-commander", // Theme to use for rendering
+    themePath: "console-norton-commander", // Theme to use for rendering
     disableNavigation: false, // Set to true to disable navigation, only allowing browsing in the current folder
     disableFileDownload: false // Set to true to disable file downloads upon click
 );
@@ -140,7 +140,7 @@ $localAdapter = new LocalFilesystemAdapter(__DIR__."/storage/");
 $filesystem = new Filesystem($localAdapter);
 $adapter = new FlysystemAdapter($filesystem);
 
-$renderer = new HtmlRenderer(theme: 'console-midnight-commander');
+$renderer = new HtmlRenderer(themePath: 'console-midnight-commander');
 $config = new FileBrowserConfig([
     'date_format' => "M d Y H:i", // Format for displaying file modification dates (same format as PHP's `date()` function)
     'ignore_filenames' => ["file.log"], // Exclude file.log from list
@@ -178,7 +178,7 @@ $adapter->initialize(
 );
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-norton-commander');
+$renderer = new HtmlRenderer(themePath: 'console-norton-commander');
 
 // Create config
 $config = new FileBrowserConfig([
@@ -214,7 +214,7 @@ $adapter = new SftpAdapter(
 );
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-norton-commander');
+$renderer = new HtmlRenderer(themePath: 'console-norton-commander');
 
 // Create config
 $config = new FileBrowserConfig([
@@ -244,7 +244,7 @@ use Marktaborosi\StorageBrowser\StorageBrowser;
 $adapter = new UnifiedArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-norton-commander');
+$renderer = new HtmlRenderer(themePath: 'console-norton-commander');
 
 // Create config
 $config = new FileBrowserConfig();
@@ -272,7 +272,7 @@ use Marktaborosi\StorageBrowser\StorageBrowser;
 $adapter = new ZipArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
 
 // Create renderer
-$renderer = new HtmlRenderer(theme: 'console-norton-commander');
+$renderer = new HtmlRenderer(themePath: 'console-norton-commander');
 
 // Create config
 $config = new FileBrowserConfig([

@@ -274,6 +274,21 @@ You can configure various options for the file browser, such as:
   
 - **ignore_extensions**: A list of file extensions to exclude. For instance, you might exclude zip files or certain types of configuration files by adding them to this array.
 
+### Console Renderer
+
+To use the Console Renderer in a CLI environment, you can instantiate it as follows:
+
+```php
+// Create renderer
+$renderer = new \Marktaborosi\StorageBrowser\Renderers\ConsoleRenderer();
+```
+It looks structurally similar to a Windows DIR command:
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px;">
+    <div style="text-align: center;">
+        <img src="examples/screenshots/console-renderer.png" alt="console-renderer" style="width: 100%;"/>
+    </div>
+</div>
+
 ## HTTP Renderer Themes
 
 Below are some screenshots of the available themes:
@@ -310,24 +325,6 @@ Below are some screenshots of the available themes:
     <div style="text-align: center;">
         <img src="examples/screenshots/console-norton-commander.png" alt="console-norton-commander" style="width: 100%;"/>
         <p><strong>console-norton-commander</strong></p>
-    </div>
-</div>
-
-
-### Console Renderer
-
-Below are some screenshots of the available themes:
-
-To use the Console Renderer in a CLI environment, you can instantiate it as follows:
-
-```php
-// Create renderer
-$renderer = new \Marktaborosi\StorageBrowser\Renderers\ConsoleRenderer();
-```
-It looks structurally similar to a Windows DIR command:
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px;">
-    <div style="text-align: center;">
-        <img src="examples/screenshots/console-renderer.png" alt="console-renderer" style="width: 100%;"/>
     </div>
 </div>
 

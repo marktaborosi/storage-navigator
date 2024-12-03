@@ -16,18 +16,43 @@ This library allows accessing various storage systems via adapters and rendering
 ## Supported Adapters
 
 - **Flysystem**: Provides integration with the *League\Flysystem* library for a unified filesystem interface. The following Flysystem adapters are currently available:
-    - **Local**: Accesses and interacts with local file systems.
-    - **Dropbox**: Provides access to Dropbox storage.
-    - **Amazon S3 (AWS)**: Enables integration with Amazon S3 for cloud storage. Has AsyncAws too.
-    - **Azure Blob**: Provides access to Microsoft Azure Blob Storage, allowing interaction with objects stored in Azure's cloud-based storage service.
-    - **FTP**: Allows FTP connections for navigating and managing files on FTP servers.
-    - **SFTP**: Secure FTP connections to remote servers via SSH. Has version 2 and 3 of phpseclib.
-    - **MongoDB GridFS**: Allows interaction with MongoDB's GridFS, a specification for storing large files in MongoDB, enabling streaming of large files.
-    - **Rackspace**: Connects with Rackspace cloud storage.
-    - **Google Drive**: Provides access to Google Drive for cloud file management.
-    - **GitLab**: Accesses files stored on GitLab, a web-based Git repository manager, for managing repository data and artifacts.
-    - **WebDAV**: Enables file interactions with WebDAV-compatible servers.
-    - **InMemory**: This adapter keeps the filesystem completely in memory. This is useful when you need a filesystem, but don’t want it persisted.
+  - **Local**: Accesses and interacts with local file systems.
+  - **Dropbox**: Provides access to Dropbox storage.
+  - **Amazon S3 (AWS)**: Enables integration with Amazon S3 for cloud storage. Has AsyncAws too.
+  - **Azure Blob**: Provides access to Microsoft Azure Blob Storage, allowing interaction with objects stored in Azure's cloud-based storage service.
+  - **FTP**: Allows FTP connections for navigating and managing files on FTP servers using the built-in PHP `ftp_connect` function.
+  - **SFTP**: Secure FTP connections to remote servers via SSH, utilizing the `phpseclib3\Net\SFTP` library for advanced secure file transfers.
+  - **MongoDB GridFS**: Allows interaction with MongoDB's GridFS, a specification for storing large files in MongoDB, enabling streaming of large files.
+  - **Rackspace**: Connects with Rackspace cloud storage for file management in cloud environments.
+  - **Google Drive**: Provides access to Google Drive for cloud file management, allowing seamless interaction with Google’s storage.
+  - **GitLab**: Accesses files stored on GitLab, a web-based Git repository manager, for managing repository data and artifacts.
+  - **WebDAV**: Enables file interactions with WebDAV-compatible servers for remote file management.
+  - **InMemory**: This adapter keeps the filesystem completely in memory, which is useful when you need a filesystem without persistence.
+
+- **FTP Adapter**: Uses PHP's built-in `ftp_connect` function for connecting and navigating FTP servers. Ideal for legacy FTP setups.
+
+- **SFTP Adapter**: Establishes secure FTP connections to remote servers using the `phpseclib3\Net\SFTP` class, supporting robust SSH-based file transfers.
+
+- **Native Adapter**: Leverages PHP's built-in `scandir` function for accessing and interacting with local file systems. Suitable for basic filesystem navigation.
+
+- **Unified Archive Adapter**: Provides access to various archive types using the *wapmorgan\UnifiedArchive* library. This includes support for:
+  - `.zip`
+  - `.tar`
+  - `.tar.gz`
+  - `.tar.bz2`
+  - `.tar.xz`
+  - `.rar`
+  - `.7z`
+  - `.gzip`
+  - `.xz`
+  - `.lzma`
+  - `.iso`
+  - `.ar`
+  - `.cpio`
+
+- **ZIP Archive Adapter**: Utilizes PHP's `ZipArchive` class to interact with and manage `.zip` archives, offering a convenient way to work with compressed files.
+
+- **Null Adapter**: A placeholder adapter that does nothing, useful for debugging or testing without requiring actual storage interactions.
 
 
 ## Renderers

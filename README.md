@@ -7,11 +7,11 @@ This library allows accessing various storage systems via adapters and rendering
 
 ## Supported Adapters
 
-- **League\Flysystem**: Provides integration with the Flysystem library for a unified filesystem interface.
+- **Flysystem**: Provides integration with the *League\Flysystem* library for a unified filesystem interface.
 - **FTP**: Access FTP servers and navigate their directories.
 - **SFTP**: Secure FTP connections to remote servers.
 - **Native (PHP built-in functions)**: Uses PHP's built-in `scandir` and other native file system functions.
-- **Warpmorgan\UnifiedArchive**: For working with archive files like TAR, GZ, etc.
+- **UnifiedArchive**: For working with archive files like TAR, GZ, etc. Integrates *warpmorgan\UnifiedArchive*.
 - **ZIP**: Access and interact with ZIP archives.
 - **Null**: A placeholder adapter for scenarios where no actual storage is needed.
 
@@ -34,16 +34,8 @@ The HTML renderer supports multiple skins. Here are some of the available themes
 - **console-midnight-commander**
 - **console-norton-commander**
 
-Each theme provides a different look and feel for the file browser. Below are some screenshots of the available themes:
-
-![basic-dark](screenshots/basic-dark.png)
-![basic-light](screenshots/basic-light.png)
-![basic-mac](screenshots/basic-mac.png)
-![basic-norton](screenshots/basic-norton.png)
-![basic-terminal](screenshots/basic-terminal.png)
-![console-hacker](screenshots/console-hacker.png)
-![console-midnight-commander](screenshots/console-midnight-commander.png)
-![console-norton-commander](screenshots/console-norton-commander.png)
+Each theme provides a different look and feel for the file browser. 
+Check themes at the end of documentation.
 
 ## Installation
 
@@ -121,6 +113,46 @@ You can configure various options for the file browser, such as:
 - **`date_format`**: The format for displaying file modification dates.
 - **`ignore_filenames`**: List of filenames to ignore.
 - **`ignore_extensions`**: List of file extensions to ignore.
+
+## HTTP Renderer Themes
+
+Below are some screenshots of the available themes:
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+    <div style="text-align: center;">
+        <img src="examples/screenshots/basic-dark.png" alt="basic-dark" style="width: 100%;"/>
+        <p><strong>basic-dark</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/basic-light.png" alt="basic-light" style="width: 100%;"/>
+        <p><strong>basic-light</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/basic-mac.png" alt="basic-mac" style="width: 100%;"/>
+        <p><strong>basic-mac</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/basic-norton.png" alt="basic-norton" style="width: 100%;"/>
+        <p><strong>basic-norton</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/basic-terminal.png" alt="basic-terminal" style="width: 100%;"/>
+        <p><strong>basic-terminal</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/console-hacker.png" alt="console-hacker" style="width: 100%;"/>
+        <p><strong>console-hacker</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/console-midnight-commander.png" alt="console-midnight-commander" style="width: 100%;"/>
+        <p><strong>console-midnight-commander</strong></p>
+    </div>
+    <div style="text-align: center;">
+        <img src="examples/screenshots/console-norton-commander.png" alt="console-norton-commander" style="width: 100%;"/>
+        <p><strong>console-norton-commander</strong></p>
+    </div>
+</div>
+
 
 ## Contributing
 

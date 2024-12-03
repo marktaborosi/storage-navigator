@@ -93,7 +93,7 @@ For detailed information on Flysystem, its adapters, and usage, please refer to 
 ```php
 $localAdapter = new LocalFilesystemAdapter(__DIR__."/storage/");
 $filesystem = new Filesystem($localAdapter);
-$adapter = new FilesystemAdapter($filesystem);
+$adapter = new FlysystemAdapter($filesystem);
 
 $renderer = new HtmlRenderer(theme: 'console-midnight-commander');
 $config = new FileBrowserConfig([

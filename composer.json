@@ -1,6 +1,6 @@
 {
   "name": "marktaborosi/storage-navigator",
-  "description": "A simple lightweight storage/file browser and navigator library with rendering options.",
+  "description": "A simple lightweight universal storage/file browser and navigator library with rendering options.",
   "type": "library",
   "version": "1.1.0",
   "require": {

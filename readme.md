@@ -67,6 +67,11 @@ Below are examples of how to use **Storage Navigator** with different adapters a
 ### Native Adapter Example
 
 ```php
+use Marktaborosi\StorageBrowser\Adapters\PHPNativeAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 $adapter = new PHPNativeAdapter();
 
 // Create config
@@ -99,6 +104,13 @@ $browser->display();
 For detailed information on Flysystem, its adapters, and usage, please refer to the [Flysystem Documentation](https://flysystem.thephpleague.com/docs/).
 
 ```php
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use Marktaborosi\StorageBrowser\Adapters\FlysystemAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 $localAdapter = new LocalFilesystemAdapter(__DIR__."/storage/");
 $filesystem = new Filesystem($localAdapter);
 $adapter = new FlysystemAdapter($filesystem);
@@ -123,6 +135,12 @@ $browser->display();
 ### FTP Adapter Example
 
 ```php
+use Marktaborosi\StorageBrowser\Adapters\FTP\FtpConnection;
+use Marktaborosi\StorageBrowser\Adapters\FtpAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 // Initialize FTP adapter
 $adapter = new FtpAdapter(new FtpConnection());
 
@@ -156,6 +174,11 @@ $browser->display();
 ### SFTP Adapter Example
 
 ```php
+use Marktaborosi\StorageBrowser\Adapters\SftpAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 // Initialize SFTP adapter
 $adapter = new SftpAdapter(
     'test.rebex.net',   // SFTP server address
@@ -187,6 +210,11 @@ $browser->display();
 ### Unified Archive Adapter Example
 
 ```php
+use Marktaborosi\StorageBrowser\Adapters\UnifiedArchiveAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 // Initialize Unified Archive adapter
 $adapter = new UnifiedArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
 
@@ -210,6 +238,11 @@ $browser->display();
 ### ZIP Archive Adapter Example
 
 ```php
+use Marktaborosi\StorageBrowser\Adapters\ZipArchiveAdapter;
+use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
+use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
+use Marktaborosi\StorageBrowser\StorageBrowser;
+
 // Initialize ZIP Archive adapter
 $adapter = new ZipArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
 
@@ -279,6 +312,25 @@ Below are some screenshots of the available themes:
         <p><strong>console-norton-commander</strong></p>
     </div>
 </div>
+
+
+### Console Renderer
+
+Below are some screenshots of the available themes:
+
+To use the Console Renderer in a CLI environment, you can instantiate it as follows:
+
+```php
+// Create renderer
+$renderer = new \Marktaborosi\StorageBrowser\Renderers\ConsoleRenderer();
+```
+It looks structurally similar to a Windows DIR command:
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px;">
+    <div style="text-align: center;">
+        <img src="examples/screenshots/console-renderer.png" alt="console-renderer" style="width: 100%;"/>
+    </div>
+</div>
+
 
 ## Contributing
 

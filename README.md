@@ -120,7 +120,7 @@ use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
 use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
 use Marktaborosi\StorageBrowser\StorageBrowser;
 
-$localAdapter = new LocalFilesystemAdapter(__DIR__."/storage/");
+$localAdapter = new LocalFilesystemAdapter('your_location_here');
 $filesystem = new Filesystem($localAdapter);
 $adapter = new FlysystemAdapter($filesystem);
 
@@ -225,7 +225,7 @@ use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
 use Marktaborosi\StorageBrowser\StorageBrowser;
 
 // Initialize Unified Archive adapter
-$adapter = new UnifiedArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
+$adapter = new UnifiedArchiveAdapter('your_rar_location/your_rar_file.rar');
 
 // Create renderer
 $renderer = new HtmlRenderer(themePath: 'console-norton-commander');
@@ -253,7 +253,7 @@ use Marktaborosi\StorageBrowser\Renderers\HtmlRenderer;
 use Marktaborosi\StorageBrowser\StorageBrowser;
 
 // Initialize ZIP Archive adapter
-$adapter = new ZipArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
+$adapter = new ZipArchiveAdapter("your_zip_location/your_zip_file.zip");
 
 // Create renderer
 $renderer = new HtmlRenderer(themePath: 'console-norton-commander');

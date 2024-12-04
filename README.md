@@ -304,7 +304,6 @@ It looks structurally similar to a Windows DIR command:
 
 HTTP Renderer has navigation and file download support.
 Each theme provides a different look and feel for the file browser.
-Check themes at the end of documentation.
 
 Below are some screenshots of the available themes:
 

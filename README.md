@@ -300,9 +300,9 @@ It looks structurally similar to a Windows DIR command:
     </div>
 </div>
 
-## HTTP Renderer Themes
+## HTML Renderer Themes
 
-HTTP Renderer has navigation and file download support.
+HTML Renderer has navigation and file download support.
 Each theme provides a different look and feel for the file browser.
 
 Below are some screenshots of the available themes:

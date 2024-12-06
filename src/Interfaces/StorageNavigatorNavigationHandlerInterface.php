@@ -13,7 +13,7 @@ namespace Marktaborosi\StorageNavigator\Interfaces;
  * @package Marktaborosi\StorageBrowser\Interfaces
  * @pattern Strategy
  */
-interface StorageNavigatorActionHandlerInterface
+interface StorageNavigatorNavigationHandlerInterface
 {
     /**
      * Determines if the current request is to change the directory path.

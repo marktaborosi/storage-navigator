@@ -3,7 +3,7 @@
 namespace Marktaborosi\StorageNavigator\Renderers;
 
 use Exception;
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
 use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
@@ -68,9 +68,9 @@ class ConsoleRenderer implements StorageNavigatorRendererInterface
      * Since this renderer is for the console and no navigation is required,
      * a NullNavigationHandler is returned.
      *
-     * @return StorageNavigatorActionHandlerInterface Returns a NullNavigationHandler, as no navigation is required in the console.
+     * @return StorageNavigatorNavigationHandlerInterface Returns a NullNavigationHandler, as no navigation is required in the console.
      */
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         return new NullNavigationHandler();
     }

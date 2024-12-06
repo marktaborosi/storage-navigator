@@ -828,7 +828,7 @@ The **StorageNavigatorRendererInterface** contains two core methods you need to 
 - **`render(RenderData $data): void`**  
   This method is responsible for generating and displaying the output based on the provided `RenderData`. You can customize the way data is displayed, such as creating HTML pages, console output, or even JSON responses.
 
-- **`navigationHandler(): StorageNavigatorActionHandlerInterface`**  
+- **`navigationHandler(): StorageNavigatorNavigationHandlerInterface`**  
   This method provides a navigation handler to process navigation-related actions, like changing directories or downloading files.
 
 ---
@@ -843,7 +843,7 @@ Start by creating a class that implements the `StorageNavigatorRendererInterface
 namespace YourNamespace;
 
 use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
 
 class YourCustomRenderer implements StorageNavigatorRendererInterface
@@ -853,7 +853,7 @@ class YourCustomRenderer implements StorageNavigatorRendererInterface
         // Implement the rendering logic here
     }
 
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         // Return your custom navigation handler
     }
@@ -879,21 +879,22 @@ public function render(RenderData $data): void
 
 ### Step 3: Implement the `navigationHandler` Method
 
-The `navigationHandler` method returns a `StorageNavigatorActionHandlerInterface` implementation. This handles navigation actions like changing directories or downloading files.
+The `navigationHandler` method returns a `StorageNavigatorNavigationHandlerInterface` implementation. This handles navigation actions like changing directories or downloading files.
 
 If no navigation logic is needed, you can return a `NullNavigationHandler`:
 ```php
-public function navigationHandler(): StorageNavigatorActionHandlerInterface
+public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
 {
     return new NullNavigationHandler();
 }
 ```
 
-For custom navigation handling, create a new class implementing `StorageNavigatorActionHandlerInterface`:
-```php
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+For custom navigation handling, create a new class implementing `StorageNavigatorNavigationHandlerInterface`:
 
-class CustomNavigationHandler implements StorageNavigatorActionHandlerInterface
+```php
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
+
+class CustomNavigationHandler implements StorageNavigatorNavigationHandlerInterface
 {
     public function isChangePathRequest(): bool { /* Your logic */ }
     public function isDownloadFileRequest(): bool { /* Your logic */ }
@@ -927,11 +928,12 @@ $navigator->display();
 ## 3. Example: Minimal Renderer
 
 Here's a minimal example of a renderer that outputs a plain-text file list:
+
 ```php
 namespace YourNamespace;
 
 use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
 use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
 
@@ -944,7 +946,7 @@ class PlainTextRenderer implements StorageNavigatorRendererInterface
         }
     }
 
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         return new NullNavigationHandler();
     }

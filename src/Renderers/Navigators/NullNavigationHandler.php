@@ -2,7 +2,7 @@
 
 namespace Marktaborosi\StorageNavigator\Renderers\Navigators;
 
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 
 /**
  * Class NullNavigationHandler
@@ -15,7 +15,7 @@ use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterf
  * @pattern Strategy
  *
  */
-class NullNavigationHandler implements StorageNavigatorActionHandlerInterface
+class NullNavigationHandler implements StorageNavigatorNavigationHandlerInterface
 {
     /**
      * Indicates that no change path request is detected.

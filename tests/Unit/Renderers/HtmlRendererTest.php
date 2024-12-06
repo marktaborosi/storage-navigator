@@ -8,7 +8,7 @@ use Marktaborosi\StorageNavigator\Entities\FileStructure;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Renderers\Navigators\HttpNavigationHandler;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -61,7 +61,7 @@ class HtmlRendererTest extends TestCase
 
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $handler = $renderer->navigationHandler();
-        $this->assertInstanceOf(StorageNavigatorActionHandlerInterface::class, $handler);
+        $this->assertInstanceOf(StorageNavigatorNavigationHandlerInterface::class, $handler);
         $this->assertInstanceOf(HttpNavigationHandler::class, $handler);
 
         unlink($themePath);

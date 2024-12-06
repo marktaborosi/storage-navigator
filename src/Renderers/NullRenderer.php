@@ -2,7 +2,7 @@
 
 namespace Marktaborosi\StorageNavigator\Renderers;
 
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
 use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
@@ -32,9 +32,9 @@ class NullRenderer implements StorageNavigatorRendererInterface
     /**
      * Provides a navigation handler for the null renderer.
      *
-     * @return StorageNavigatorActionHandlerInterface The navigation handler instance, which is a NullNavigationHandler in this case.
+     * @return StorageNavigatorNavigationHandlerInterface The navigation handler instance, which is a NullNavigationHandler in this case.
      */
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         return new NullNavigationHandler();
     }

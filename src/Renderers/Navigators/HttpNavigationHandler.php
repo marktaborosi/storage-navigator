@@ -2,7 +2,7 @@
 
 namespace Marktaborosi\StorageNavigator\Renderers\Navigators;
 
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use RuntimeException;
 
 /**
@@ -15,7 +15,7 @@ use RuntimeException;
  * @package Marktaborosi\StorageBrowser\Renderers\Navigators
  * @pattern Strategy
  */
-class HttpNavigationHandler implements StorageNavigatorActionHandlerInterface
+class HttpNavigationHandler implements StorageNavigatorNavigationHandlerInterface
 {
 
     public function __construct() {

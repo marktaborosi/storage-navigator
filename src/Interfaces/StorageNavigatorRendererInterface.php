@@ -37,7 +37,7 @@ interface StorageNavigatorRendererInterface
      * for managing navigation requests such as changing directories, downloading files,
      * or handling other browser actions.
      *
-     * @return StorageNavigatorActionHandlerInterface The navigation handler instance for managing navigation requests.
+     * @return StorageNavigatorNavigationHandlerInterface The navigation handler instance for managing navigation requests.
      */
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface;
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface;
 }

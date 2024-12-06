@@ -2,7 +2,7 @@
 
 namespace Marktaborosi\StorageNavigator\Renderers;
 
-use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
 use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
 use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
@@ -143,9 +143,9 @@ class HtmlRenderer implements StorageNavigatorRendererInterface
     /**
      * Retrieves the navigation handler for handling navigation operations.
      *
-     * @return StorageNavigatorActionHandlerInterface The navigation handler instance.
+     * @return StorageNavigatorNavigationHandlerInterface The navigation handler instance.
      */
-    public function navigationHandler(): StorageNavigatorActionHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         return new HttpNavigationHandler();
     }

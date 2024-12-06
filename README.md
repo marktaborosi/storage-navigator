@@ -140,8 +140,6 @@ use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\StorageNavigator;
 
-require_once '../vendor/autoload.php';
-
 // Create a native PHP adapter for filesystem operations
 $adapter = new PHPNativeAdapter();
 
@@ -232,8 +230,6 @@ use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\StorageNavigator;
 
-require_once '../vendor/autoload.php';
-
 // Create an FTP adapter for connecting to the FTP server
 $adapter = new FtpAdapter(new FtpConnection());
 $adapter->initialize(
@@ -283,8 +279,6 @@ use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\StorageNavigator;
 
-require_once '../vendor/autoload.php';
-
 // Create an SFTP adapter for connecting to the SFTP server
 $adapter = new SftpAdapter(
     'test.rebex.net',   // SFTP server address
@@ -333,8 +327,6 @@ use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\StorageNavigator;
 
-require_once '../vendor/autoload.php';
-
 // Create a ZIP archive adapter to interact with the specified archive
 $adapter = new UnifiedArchiveAdapter(__DIR__ . "/storage/zips/1mb-fake-sample.zip");
 
@@ -378,8 +370,6 @@ use Marktaborosi\StorageNavigator\Builders\FileStructureFilterBuilder;
 use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
 use Marktaborosi\StorageNavigator\StorageNavigator;
-
-require_once '../vendor/autoload.php';
 
 // Create a ZIP archive adapter to interact with the specified archive
 try {

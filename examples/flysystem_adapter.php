@@ -34,7 +34,7 @@ $config = new HtmlRendererConfig([
 
 // Create the HTML renderer with a specific theme and options
 $renderer = new HtmlRenderer(
-    themePath: 'console-midnight-commander', // Set theme path
+    themePath: 'basic-light', // Set theme path
     config: $config, // Pass configuration
     disableNavigation: false, // Enable navigation
     disableFileDownload: false // Enable file downloads

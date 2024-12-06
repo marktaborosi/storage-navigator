@@ -8,6 +8,7 @@ use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
 use Marktaborosi\StorageNavigator\Renderers\Navigators\HttpNavigationHandler;
 use Marktaborosi\StorageNavigator\Traits\PathHelperTrait;
+use RuntimeException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -123,7 +124,8 @@ class HtmlRenderer implements StorageNavigatorRendererInterface
             'css_contents' => $this->cssContents,
             'files' => $data->getStructure()->toArray(),
             'disable_navigation' => $this->disableNavigation,
-            'disable_file_download' => $this->disableFileDownload
+            'disable_file_download' => $this->disableFileDownload,
+            'icons_path' => $this->base64Image(__DIR__ . '/../../public/images/icons/extensions.png')
         ];
 
         if (!$this->disableNavigation) {
@@ -179,6 +181,29 @@ class HtmlRenderer implements StorageNavigatorRendererInterface
             return preg_replace('/\.min\.css$/', '', basename($file));
         }, $files);
     }
+
+    /**
+     * Converts an image file to a Base64-encoded data URI.
+     *
+     * This method reads the binary content of an image file from the given location
+     * and encodes it into a Base64 string. The resulting string is prefixed with
+     * `data:image/png;base64,` to create a valid data URI for use in HTML or CSS.
+     *
+     * @param string $location The file path of the image to encode.
+     *
+     * @return string The Base64-encoded data URI of the image.
+     *
+     * @throws RuntimeException If the file cannot be read.
+     */
+    private function base64Image(string $location): string
+    {
+        $iconsImageData = file_get_contents($location);
+        if ($iconsImageData === false) {
+            throw new RuntimeException("Unable to read the file at: $location");
+        }
+        return 'data:image/png;base64,' . base64_encode($iconsImageData);
+    }
+
 
     /**
      * Sets the HTTP response code.

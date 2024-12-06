@@ -166,7 +166,7 @@ $filterBuilder
     ->nameContains("my_name"); // Match files containing the specified name 
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the PHP native filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: __DIR__ . "/storage/", // Set the root directory to browse
@@ -174,7 +174,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 ```
 
 
@@ -211,7 +211,7 @@ $filterBuilder
     ->nameContains('my_name.pdf'); // Match files containing the specified name
 
 // Initialize the StorageNavigator with configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root path for the navigator
@@ -219,7 +219,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 ```
 
 ### FTP Adapter Example
@@ -263,7 +263,7 @@ $filterBuilder = new FileStructureFilterBuilder();
 $filterBuilder->isFile(); // Shows only files
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the FTP adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
@@ -271,7 +271,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 ```
 
 ### SFTP Adapter Example
@@ -313,7 +313,7 @@ $filterBuilder = new FileStructureFilterBuilder();
 $filterBuilder->isFile(); // Include only files in the displayed structure
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the SFTP adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
@@ -321,7 +321,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 ```
 
 ### Unified Archive Adapter Example
@@ -358,7 +358,7 @@ $filterBuilder
     ->isFile(); // Include only files in the displayed structure
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the archive adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
@@ -366,7 +366,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 
 ```
 
@@ -409,7 +409,7 @@ $filterBuilder
 
 // Initialize the StorageNavigator with the configured components
 // Note: Additional filters can be applied using methods on $filterBuilder if needed
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the archive adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
@@ -417,7 +417,7 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();
 ```
 
 # Renderers

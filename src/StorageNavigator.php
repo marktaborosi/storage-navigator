@@ -100,14 +100,19 @@ class StorageNavigator
 
         // Handle directory change requests
         if ($navigationHandler->isChangePathRequest()) {
+            if ($this->filterBuilder) {
+                $entries = FileStructureFilterer::filter(
+                    $this->adapter->getFileStructure($navigationHandler->changeToPath())->getEntries(),
+                    $this->filterBuilder
+                );
+            } else {
+                $entries = $this->adapter->getFileStructure($navigationHandler->changeToPath());
+            }
             $this->renderer->render(
                 new RenderData(
                     $navigationHandler->changeToPath(),
                     $this->rootPath,
-                    FileStructureFilterer::filter(
-                        $this->adapter->getFileStructure($navigationHandler->changeToPath())->getEntries(),
-                        $this->filterBuilder
-                    )
+                    $entries
                 )
             );
         }
@@ -124,14 +129,19 @@ class StorageNavigator
 
         // Handle default rendering of the root directory
         if (!$navigationHandler->isChangePathRequest() && !$navigationHandler->isDownloadFileRequest()) {
+            if ($this->filterBuilder) {
+                $entries = FileStructureFilterer::filter(
+                    $this->adapter->getFileStructure($this->rootPath)->getEntries(),
+                    $this->filterBuilder
+                );
+            } else {
+                $entries = $this->adapter->getFileStructure($this->rootPath);
+            }
             $this->renderer->render(
                 new RenderData(
                     $this->rootPath,
                     $this->rootPath,
-                    FileStructureFilterer::filter(
-                        $this->adapter->getFileStructure($this->rootPath)->getEntries(),
-                        $this->filterBuilder
-                    )
+                    $entries
                 )
             );
         }

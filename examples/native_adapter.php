@@ -40,7 +40,7 @@ $filterBuilder
     ->isFile(); // Filter entries to include only files
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the PHP native filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: __DIR__ . "/storage/", // Set the root directory to browse
@@ -48,4 +48,4 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();

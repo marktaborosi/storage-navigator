@@ -47,7 +47,7 @@ $filterBuilder
     ->nameContains('document.pdf'); // Match files containing the specified names
 
 // Initialize the StorageNavigator with configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root path for the navigator
@@ -55,4 +55,4 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();

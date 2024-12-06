@@ -25,9 +25,11 @@ $adapter = new NullAdapter();
 $renderer = new NullRenderer();
 
 //Initialize the StorageNavigator with the following:
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter,
     renderer: $renderer,
     rootPath: "",
     filterBuilder: null
 );
+
+$navigator->display();

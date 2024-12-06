@@ -48,7 +48,7 @@ $filterBuilder = new FileStructureFilterBuilder();
 $filterBuilder->isFile(); // Shows only files
 
 // Initialize the StorageNavigator with the configured components
-$browser = new StorageNavigator(
+$navigator = new StorageNavigator(
     adapter: $adapter, // Pass the FTP adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
@@ -56,4 +56,4 @@ $browser = new StorageNavigator(
 );
 
 // Display the file structure in the browser
-$browser->display();
+$navigator->display();

@@ -1,9 +1,9 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Adapters;
+namespace Marktaborosi\StorageNavigator\Adapters;
 
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserAdapterInterface;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorAdapterInterface;
 
 /**
  * Null adapter for file browsing.
@@ -14,7 +14,7 @@ use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserAdapterInterface;
  * @package Marktaborosi\StorageBrowser\Adapters
  * @pattern Adapter / Facade
  */
-class NullAdapter implements StorageBrowserAdapterInterface
+class NullAdapter implements StorageNavigatorAdapterInterface
 {
     /**
      * Get the structure of a given location (directory).
@@ -39,7 +39,7 @@ class NullAdapter implements StorageBrowserAdapterInterface
      */
     public function fileOrDirectoryExists(string $location): bool
     {
-        return false; // Always return false as no actual file operations are performed
+        return true; // Always return false as no actual file operations are performed
     }
 
     public function downloadFile(string $filePath): void

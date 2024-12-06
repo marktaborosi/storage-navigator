@@ -2,7 +2,7 @@
   "name": "marktaborosi/storage-navigator",
   "description": "A simple lightweight universal storage/file browser and navigator library with rendering options.",
   "type": "library",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "require": {
     "php": ">=8.2",
     "twig/twig": "^3.11",
@@ -21,8 +21,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Marktaborosi\\StorageBrowser\\": "src/",
-      "Marktaborosi\\Tests\\": "tests/"
+      "Marktaborosi\\StorageNavigator\\": "src/",
+      "Marktaborosi\\StorageNavigator\\Tests\\": "tests/"
     }
   },
   "authors": [

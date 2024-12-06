@@ -1,16 +1,16 @@
 <?php
 
-namespace Marktaborosi\Tests\Integration\Adapter;
+namespace Marktaborosi\StorageNavigator\Tests\Integration\Adapter;
 
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\Local\LocalFilesystemAdapter;
-use Marktaborosi\StorageBrowser\Adapters\FlysystemAdapter;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\Tests\Traits\StorageTrait;
+use Marktaborosi\StorageNavigator\Adapters\FlysystemAdapter;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Tests\Traits\StorageTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -86,7 +86,7 @@ class FlysystemAdapterIntegrationTest extends TestCase
         $fileStructureBuilder->addFile($expectedFile1);
         $fileStructureBuilder->addFile($expectedFile2);
         $fileStructureBuilder->addDirectory($expectedDirectory);
-        $expectedFileStructure = $fileStructureBuilder->sortBy()->build();
+        $expectedFileStructure = $fileStructureBuilder->sortByAZ()->build();
 
         // Test the actual adapter with real filesystem
         $adapter = new FlysystemAdapter($this->adapterWithRealFilesystem);

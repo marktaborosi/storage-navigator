@@ -1,12 +1,12 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Renderers;
+namespace Marktaborosi\StorageNavigator\Renderers;
 
 use Exception;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserNavigationHandlerInterface;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserRendererInterface;
-use Marktaborosi\StorageBrowser\Renderers\Entities\RenderData;
-use Marktaborosi\StorageBrowser\Renderers\Navigators\NullNavigationHandler;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
+use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
+use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
 
 /**
  * Class ConsoleRenderer
@@ -18,7 +18,7 @@ use Marktaborosi\StorageBrowser\Renderers\Navigators\NullNavigationHandler;
  * @package Marktaborosi\StorageBrowser\Renderers
  * @pattern Strategy
  */
-class ConsoleRenderer implements StorageBrowserRendererInterface
+class ConsoleRenderer implements StorageNavigatorRendererInterface
 {
     /**
      * Renders the file browser output in the console, similar to 'ls -la' in Ubuntu or 'dir' in Windows.
@@ -68,9 +68,9 @@ class ConsoleRenderer implements StorageBrowserRendererInterface
      * Since this renderer is for the console and no navigation is required,
      * a NullNavigationHandler is returned.
      *
-     * @return StorageBrowserNavigationHandlerInterface Returns a NullNavigationHandler, as no navigation is required in the console.
+     * @return StorageNavigatorActionHandlerInterface Returns a NullNavigationHandler, as no navigation is required in the console.
      */
-    public function navigationHandler(): StorageBrowserNavigationHandlerInterface
+    public function navigationHandler(): StorageNavigatorActionHandlerInterface
     {
         return new NullNavigationHandler();
     }

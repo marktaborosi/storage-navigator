@@ -1,6 +1,6 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Adapters;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Adapters;
 
 use Exception;
 use League\Flysystem\DirectoryAttributes;
@@ -8,12 +8,12 @@ use League\Flysystem\DirectoryListing;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
-use Marktaborosi\StorageBrowser\Adapters\FlysystemAdapter;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\Tests\Traits\StorageTrait;
+use Marktaborosi\StorageNavigator\Adapters\FlysystemAdapter;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Tests\Traits\StorageTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -77,7 +77,7 @@ class FlysystemAdapterTest extends TestCase
         $fileStructureBuilder = new FileStructureBuilder();
         $fileStructureBuilder->addFile($expectedFile);
         $fileStructureBuilder->addDirectory($expectedDirectory);
-        $expectedFileStructure = $fileStructureBuilder->sortBy()->build();
+        $expectedFileStructure = $fileStructureBuilder->sortByAZ()->build();
 
         // Mock filesystem behavior
         $file = new FileAttributes("file1.txt", 100, null, $lastModified, null);

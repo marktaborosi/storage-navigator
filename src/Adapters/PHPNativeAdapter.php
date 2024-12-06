@@ -1,13 +1,13 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Adapters;
+namespace Marktaborosi\StorageNavigator\Adapters;
 
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserAdapterInterface;
-use Marktaborosi\StorageBrowser\Traits\PathHelperTrait;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorAdapterInterface;
+use Marktaborosi\StorageNavigator\Traits\PathHelperTrait;
 
 /**
  * Basic filesystem adapter for browsing files and directories using native PHP functions.
@@ -19,7 +19,7 @@ use Marktaborosi\StorageBrowser\Traits\PathHelperTrait;
  * @package Marktaborosi\StorageBrowser\Adapters
  * @pattern Adapter / Facade
  */
-class PHPNativeAdapter implements StorageBrowserAdapterInterface
+class PHPNativeAdapter implements StorageNavigatorAdapterInterface
 {
     use PathHelperTrait;
     /**
@@ -77,7 +77,7 @@ class PHPNativeAdapter implements StorageBrowserAdapterInterface
             );
         }
 
-        return $structureBuilder->sortBy()->build();
+        return $structureBuilder->sortByAZ()->build();
     }
 
     /**
@@ -93,6 +93,17 @@ class PHPNativeAdapter implements StorageBrowserAdapterInterface
         return file_exists($location);
     }
 
+    /**
+     * Serve a file for download.
+     *
+     * This method initiates a file download by sending the appropriate HTTP headers
+     * and streaming the file content to the client. It ensures the file is served
+     * with the correct MIME type and suggested filename.
+     *
+     * @param string $filePath The full path to the file to be downloaded.
+     *
+     * @return void
+     */
     public function downloadFile(string $filePath): void
     {
         // Serve the file for download
@@ -101,4 +112,5 @@ class PHPNativeAdapter implements StorageBrowserAdapterInterface
         header('Content-Length: ' . filesize($filePath));
         readfile($filePath);
     }
+
 }

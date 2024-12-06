@@ -5,6 +5,8 @@
     {% block head %}
         {% if 'console' in theme_path %}
             {% include 'partials/console/header.html.twig' %}
+        {% elseif 'bootstrap' in theme_path %}
+            {% include 'partials/bootstrap/header.html.twig' %}
         {% else %}
             {% include 'partials/basic/header.html.twig' %}
         {% endif %}
@@ -14,6 +16,8 @@
 {% block body %}
     {% if 'console' in theme_path %}
         {% include 'partials/console/contents.html.twig' %}
+    {% elseif 'bootstrap' in theme_path %}
+        {% include 'partials/bootstrap/contents.html.twig' %}
     {% else %}
         {% include 'partials/basic/contents.html.twig' %}
     {% endif %}
@@ -31,6 +35,8 @@
     {% block footer %}
         {% if 'console' in theme_path %}
             {% include 'partials/console/footer.html.twig' %}
+        {% elseif 'bootstrap' in theme_path %}
+            {% include 'partials/bootstrap/footer.html.twig' %}
         {% else %}
             {% include 'partials/basic/footer.html.twig' %}
         {% endif %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Adapters\FTP;
+namespace Marktaborosi\StorageNavigator\Adapters\FTP;
 
 use FTP\Connection;
 

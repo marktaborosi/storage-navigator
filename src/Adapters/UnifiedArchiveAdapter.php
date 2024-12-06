@@ -1,15 +1,15 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Adapters;
+namespace Marktaborosi\StorageNavigator\Adapters;
 
 use Exception;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserAdapterInterface;
-use Marktaborosi\StorageBrowser\Traits\ArchiveHelperTrait;
-use Marktaborosi\StorageBrowser\Traits\PathHelperTrait;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorAdapterInterface;
+use Marktaborosi\StorageNavigator\Traits\ArchiveHelperTrait;
+use Marktaborosi\StorageNavigator\Traits\PathHelperTrait;
 use wapmorgan\UnifiedArchive\Exceptions\NonExistentArchiveFileException;
 use wapmorgan\UnifiedArchive\UnifiedArchive;
 
@@ -23,7 +23,7 @@ use wapmorgan\UnifiedArchive\UnifiedArchive;
  * @pattern Adapter / Facade
  *
  */
-class UnifiedArchiveAdapter implements StorageBrowserAdapterInterface
+class UnifiedArchiveAdapter implements StorageNavigatorAdapterInterface
 {
     use PathHelperTrait, ArchiveHelperTrait;
 
@@ -108,7 +108,7 @@ class UnifiedArchiveAdapter implements StorageBrowserAdapterInterface
             );
         }
 
-        return $structureBuilder->sortBy()->build();
+        return $structureBuilder->sortByAZ()->build();
     }
 
     /**

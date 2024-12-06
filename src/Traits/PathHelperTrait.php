@@ -1,6 +1,6 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Traits;
+namespace Marktaborosi\StorageNavigator\Traits;
 
 /**
  * Trait PathHelperTrait

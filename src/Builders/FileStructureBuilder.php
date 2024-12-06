@@ -1,10 +1,10 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Builders;
+namespace Marktaborosi\StorageNavigator\Builders;
 
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
 
 /**
  * Class FileStructureBuilder
@@ -56,7 +56,7 @@ class FileStructureBuilder
      *
      * @return self Returns the instance of the builder for method chaining.
      */
-    public function sortBy(): self
+    public function sortByAZ(): self
     {
         // Separate directories and files
         $directories = [];

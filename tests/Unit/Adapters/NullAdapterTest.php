@@ -1,9 +1,9 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Adapters;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Adapters;
 
-use Marktaborosi\StorageBrowser\Adapters\NullAdapter;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Adapters\NullAdapter;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
@@ -37,13 +37,13 @@ class NullAdapterTest extends MockeryTestCase
      *
      * This test ensures that the `NullAdapter` consistently returns false for existence checks.
      */
-    public function test_file_or_directory_exists_always_returns_false(): void
+    public function test_file_or_directory_exists_always_returns_true(): void
     {
         $adapter = new NullAdapter();
 
         $result = $adapter->fileOrDirectoryExists('/some/path');
 
-        $this->assertFalse($result, 'Expected fileOrDirectoryExists to return false.');
+        $this->assertTrue($result);
     }
 
     /**

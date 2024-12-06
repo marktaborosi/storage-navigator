@@ -1,8 +1,8 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Renderers\Navigators;
+namespace Marktaborosi\StorageNavigator\Renderers\Navigators;
 
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserNavigationHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorActionHandlerInterface;
 
 /**
  * Class NullNavigationHandler
@@ -15,7 +15,7 @@ use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserNavigationHandlerInterf
  * @pattern Strategy
  *
  */
-class NullNavigationHandler implements StorageBrowserNavigationHandlerInterface
+class NullNavigationHandler implements StorageNavigatorActionHandlerInterface
 {
     /**
      * Indicates that no change path request is detected.

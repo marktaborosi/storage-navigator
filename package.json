@@ -1,6 +1,6 @@
 {
   "name": "php-storage-browser-scss-builder",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "SCSS theme builder for PHP StorageBrowser library",
   "main": "index.js",
   "scripts": {

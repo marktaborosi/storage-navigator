@@ -1,13 +1,13 @@
 <?php
 
-namespace Marktaborosi\Tests\Integration\Adapter;
+namespace Marktaborosi\StorageNavigator\Tests\Integration\Adapter;
 
-use Marktaborosi\StorageBrowser\Adapters\PHPNativeAdapter;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\Tests\Traits\StorageTrait;
+use Marktaborosi\StorageNavigator\Adapters\PHPNativeAdapter;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Tests\Traits\StorageTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -67,7 +67,7 @@ class PHPNativeAdapterIntegrationTest extends TestCase
         $fileStructureBuilder->addFile($expectedFile1);
         $fileStructureBuilder->addFile($expectedFile2);
         $fileStructureBuilder->addDirectory($expectedDirectory);
-        $expectedFileStructure = $fileStructureBuilder->sortBy()->build();
+        $expectedFileStructure = $fileStructureBuilder->sortByAZ()->build();
 
         // Test the actual adapter with the real filesystem
         $adapter = new PHPNativeAdapter();

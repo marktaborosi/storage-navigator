@@ -1,13 +1,13 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Adapters;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Adapters;
 
 use Exception;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Marktaborosi\StorageBrowser\Adapters\FtpAdapter;
-use Marktaborosi\StorageBrowser\Adapters\FTP\FtpConnection;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Adapters\FtpAdapter;
+use Marktaborosi\StorageNavigator\Adapters\FTP\FtpConnection;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
 
 /**
  * Class FtpAdapterTest

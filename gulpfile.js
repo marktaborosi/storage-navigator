@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
+const sass = require('gulp-dart-sass');
 const rename = require('gulp-rename');
 const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify');  // Import gulp-uglify for JS minification

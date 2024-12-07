@@ -1,0 +1,55 @@
+<div id="main-content" class="file_manager">
+    {% if back_path is not null %}
+        <div class="back">
+            <div class="col-lg-3 col-md-4 col-sm-12 mx-auto">
+                <a {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ back_path }}')"{% endif %}>
+                    <div class="card">
+                        >> BACK
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+    <div class="container">
+        <div class="row clearfix">
+            {% for file in files %}
+                {% if file.type == "dir" %}
+                    <div class="col-lg-3 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="file dir-name">
+                                <a {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ file.path }}{{ file.name }}')" {% endif %}>
+                                    <div class="icon">
+                                        <i class="fa fa-folder text-info"></i>
+                                    </div>
+                                    <div class="dir-name">
+                                        <p class="m-b-5 text-muted">{{ file.name }}</p>
+                                        <small><span
+                                                    class="date text-muted">{{ format(file.last_modified) }}</span></small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-lg-3 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="file">
+                                <a {% if disable_file_download == false %}onClick="submitDownloadFile(event, '{{ file.directory_path }}{{ file.filename }}')" {% endif %}>
+                                    <div class="icon">
+                                        <i class="fa fa-file text-info"></i>
+                                    </div>
+                                    <div class="file-name">
+                                        <p class="m-b-5 text-muted">{{ file.filename }}</p>
+                                        <small>Size: {{ file.size.value }} {{ file.size.unit }} <span
+                                                    class="date text-muted">{{ format(file.last_modified) }}</span></small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+</div>

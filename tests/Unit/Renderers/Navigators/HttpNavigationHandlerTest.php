@@ -1,8 +1,8 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Renderers\Navigators;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Renderers\Navigators;
 
-use Marktaborosi\StorageBrowser\Renderers\Navigators\HttpNavigationHandler;
+use Marktaborosi\StorageNavigator\Renderers\Navigators\HttpNavigationHandler;
 use PHPUnit\Framework\TestCase;
 
 /**

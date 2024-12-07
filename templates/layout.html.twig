@@ -5,6 +5,8 @@
     {% block head %}
         {% if 'console' in theme_path %}
             {% include 'partials/console/header.html.twig' %}
+        {% elseif 'bootstrap' in theme_path %}
+            {% include 'partials/bootstrap/header.html.twig' %}
         {% else %}
             {% include 'partials/basic/header.html.twig' %}
         {% endif %}
@@ -14,19 +16,27 @@
 {% block body %}
     {% if 'console' in theme_path %}
         {% include 'partials/console/contents.html.twig' %}
+    {% elseif 'bootstrap' in theme_path %}
+        {% include 'partials/bootstrap/contents.html.twig' %}
     {% else %}
         {% include 'partials/basic/contents.html.twig' %}
     {% endif %}
 {% endblock %}
-<script src="../public/js/browser-navigation.min.js"></script>
+<script>
+    {{ browser_navigation_js_contents|raw }}
+</script>
 {% if 'console' in theme_path %}
-    <script src="../public/js/console.min.js"></script>
+    <script>
+        {{ console_js_contents|raw }}
+    </script>
 {% endif %}
 </body>
 <footer>
     {% block footer %}
         {% if 'console' in theme_path %}
             {% include 'partials/console/footer.html.twig' %}
+        {% elseif 'bootstrap' in theme_path %}
+            {% include 'partials/bootstrap/footer.html.twig' %}
         {% else %}
             {% include 'partials/basic/footer.html.twig' %}
         {% endif %}

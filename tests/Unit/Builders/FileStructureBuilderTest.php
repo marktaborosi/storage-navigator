@@ -1,11 +1,11 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Builders;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Builders;
 
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -111,7 +111,7 @@ class FileStructureBuilderTest extends TestCase
         $builder->addDirectory($directory2);
         $builder->addFile($file1);
         $builder->addFile($file2);
-        $builder->sortBy();
+        $builder->sortByAZ();
         $fileStructure = $builder->build();
 
         $this->assertInstanceOf(FileStructure::class, $fileStructure);
@@ -175,7 +175,7 @@ class FileStructureBuilderTest extends TestCase
     public function test_build_empty_structure(): void
     {
         $builder = new FileStructureBuilder();
-        $fileStructure = $builder->sortBy()->build();
+        $fileStructure = $builder->sortByAZ()->build();
 
         $this->assertInstanceOf(FileStructure::class, $fileStructure);
         $this->assertEmpty($fileStructure->getDirectories());

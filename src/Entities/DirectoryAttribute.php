@@ -1,5 +1,5 @@
 <?php
-namespace Marktaborosi\StorageBrowser\Entities;
+namespace Marktaborosi\StorageNavigator\Entities;
 
 /**
  * Class representing a directory attribute.

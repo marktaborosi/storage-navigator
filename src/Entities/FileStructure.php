@@ -1,5 +1,5 @@
 <?php
-namespace Marktaborosi\StorageBrowser\Entities;
+namespace Marktaborosi\StorageNavigator\Entities;
 
 /**
  * Represents the structure of files and directories.

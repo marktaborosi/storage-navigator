@@ -1,6 +1,6 @@
 <?php
 
-namespace Marktaborosi\Tests\Traits;
+namespace Marktaborosi\StorageNavigator\Tests\Traits;
 
 /**
  * Trait StorageTrait

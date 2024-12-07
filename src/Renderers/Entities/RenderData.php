@@ -1,9 +1,8 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Renderers\Entities;
+namespace Marktaborosi\StorageNavigator\Renderers\Entities;
 
-use Marktaborosi\StorageBrowser\Config\FileBrowserConfig;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
 
 /**
  * Class RenderData
@@ -26,11 +25,6 @@ class RenderData
     private FileStructure $structure;
 
     /**
-     * @var FileBrowserConfig Configuration settings for the file browser.
-     */
-    private FileBrowserConfig $configuration;
-
-    /**
      * @var string The root directory path of the file browser.
      */
     private string $rootPath;
@@ -41,18 +35,15 @@ class RenderData
      * @param string $currentPath The current directory path being viewed.
      * @param string $rootPath The root directory path of the file browser.
      * @param FileStructure $structure The structure of files and directories in the current path.
-     * @param FileBrowserConfig $configuration Configuration settings for the file browser.
      */
     public function __construct(
         string $currentPath,
         string $rootPath,
-        FileStructure $structure,
-        FileBrowserConfig $configuration
+        FileStructure $structure
     ) {
         $this->currentPath = $currentPath;
         $this->rootPath = $rootPath;
         $this->structure = $structure;
-        $this->configuration = $configuration;
     }
 
     /**
@@ -83,15 +74,5 @@ class RenderData
     public function getStructure(): FileStructure
     {
         return $this->structure;
-    }
-
-    /**
-     * Retrieves the configuration settings for the file browser.
-     *
-     * @return FileBrowserConfig The file browser configuration.
-     */
-    public function getConfiguration(): FileBrowserConfig
-    {
-        return $this->configuration;
     }
 }

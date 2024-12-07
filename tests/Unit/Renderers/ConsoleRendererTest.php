@@ -1,13 +1,10 @@
 <?php
 
-namespace Marktaborosi\Tests\Unit\Renderers;
+namespace Marktaborosi\StorageNavigator\Tests\Unit\Renderers;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Exception;
-use Marktaborosi\StorageBrowser\Renderers\ConsoleRenderer;
-use Marktaborosi\StorageBrowser\Renderers\Entities\RenderData;
-use Marktaborosi\StorageBrowser\Renderers\Navigators\NullNavigationHandler;
+use Marktaborosi\StorageNavigator\Renderers\ConsoleRenderer;
+use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
 
 class ConsoleRendererTest extends TestCase
 {

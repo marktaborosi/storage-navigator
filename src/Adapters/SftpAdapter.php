@@ -1,14 +1,14 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Adapters;
+namespace Marktaborosi\StorageNavigator\Adapters;
 
 use Exception;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserAdapterInterface;
-use Marktaborosi\StorageBrowser\Traits\PathHelperTrait;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorAdapterInterface;
+use Marktaborosi\StorageNavigator\Traits\PathHelperTrait;
 use phpseclib3\Net\SFTP;
 
 /**
@@ -22,7 +22,7 @@ use phpseclib3\Net\SFTP;
  * @pattern Adapter / Facade
  *
  */
-class SftpAdapter implements StorageBrowserAdapterInterface
+class SftpAdapter implements StorageNavigatorAdapterInterface
 {
     use PathHelperTrait;
 
@@ -111,7 +111,7 @@ class SftpAdapter implements StorageBrowserAdapterInterface
             }
         }
 
-        return $structureBuilder->sortBy()->build();
+        return $structureBuilder->sortByAZ()->build();
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
-namespace Marktaborosi\Tests\Integration\Adapter;
+namespace Marktaborosi\StorageNavigator\Tests\Integration\Adapter;
 
-use Marktaborosi\StorageBrowser\Adapters\UnifiedArchiveAdapter;
-use Marktaborosi\StorageBrowser\Builders\FileStructureBuilder;
-use Marktaborosi\StorageBrowser\Entities\DirectoryAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileAttribute;
-use Marktaborosi\StorageBrowser\Entities\FileStructure;
-use Marktaborosi\Tests\Traits\DummyFilesTrait;
+use Marktaborosi\StorageNavigator\Adapters\UnifiedArchiveAdapter;
+use Marktaborosi\StorageNavigator\Builders\FileStructureBuilder;
+use Marktaborosi\StorageNavigator\Entities\DirectoryAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileAttribute;
+use Marktaborosi\StorageNavigator\Entities\FileStructure;
+use Marktaborosi\StorageNavigator\Tests\Traits\DummyFilesTrait;
 use PHPUnit\Framework\TestCase;
 use wapmorgan\UnifiedArchive\Exceptions\NonExistentArchiveFileException;
 
@@ -58,11 +58,11 @@ class UnifiedArchiveIntegrationTest extends TestCase
         $fileStructureBuilder = new FileStructureBuilder();
         $fileStructureBuilder->addFile($expectedFile);
         $fileStructureBuilder->addDirectory($expectedDirectory);
-        $expectedFileStructure = $fileStructureBuilder->sortBy()->build();
+        $expectedFileStructure = $fileStructureBuilder->sortByAZ()->build();
 
         // Test the actual adapter with the real filesystem
         $adapter = new UnifiedArchiveAdapter(self::EXAMPLE_FILE_PATH);
-        $structure = $adapter->getFileStructure("/");
+        $structure = $adapter->getFileStructure();
 
         // Assertions
         $this->assertInstanceOf(FileStructure::class, $structure);

@@ -1,11 +1,11 @@
 <?php
 
-namespace Marktaborosi\StorageBrowser\Renderers;
+namespace Marktaborosi\StorageNavigator\Renderers;
 
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserNavigationHandlerInterface;
-use Marktaborosi\StorageBrowser\Interfaces\StorageBrowserRendererInterface;
-use Marktaborosi\StorageBrowser\Renderers\Entities\RenderData;
-use Marktaborosi\StorageBrowser\Renderers\Navigators\NullNavigationHandler;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorNavigationHandlerInterface;
+use Marktaborosi\StorageNavigator\Interfaces\StorageNavigatorRendererInterface;
+use Marktaborosi\StorageNavigator\Renderers\Entities\RenderData;
+use Marktaborosi\StorageNavigator\Renderers\Navigators\NullNavigationHandler;
 
 /**
  * Class NullRenderer
@@ -14,7 +14,7 @@ use Marktaborosi\StorageBrowser\Renderers\Navigators\NullNavigationHandler;
  * This renderer implements the FileBrowserRendererInterface but performs no actual rendering.
  * It serves as a placeholder when no output is needed.
  */
-class NullRenderer implements StorageBrowserRendererInterface
+class NullRenderer implements StorageNavigatorRendererInterface
 {
     /**
      * Renders the file browser output.
@@ -32,9 +32,9 @@ class NullRenderer implements StorageBrowserRendererInterface
     /**
      * Provides a navigation handler for the null renderer.
      *
-     * @return StorageBrowserNavigationHandlerInterface The navigation handler instance, which is a NullNavigationHandler in this case.
+     * @return StorageNavigatorNavigationHandlerInterface The navigation handler instance, which is a NullNavigationHandler in this case.
      */
-    public function navigationHandler(): StorageBrowserNavigationHandlerInterface
+    public function navigationHandler(): StorageNavigatorNavigationHandlerInterface
     {
         return new NullNavigationHandler();
     }

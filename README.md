@@ -3,9 +3,8 @@
 
 [![Author](https://img.shields.io/badge/author-@marktaborosi-blue.svg)](https://github.com/marktaborosi)
 [![Latest Version](https://img.shields.io/github/release/marktaborosi/storage-navigator.svg?style=flat-square)](https://github.com/marktaborosi/storage-navigator/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/thephpleague/flysystem/blob/master/LICENSE)
-[![Quality Assurance](https://github.com/thephpleague/flysystem/workflows/Quality%20Assurance/badge.svg?branch=2.x)](https://github.com/thephpleague/flysystem/actions?query=workflow%3A%22Quality+Assurance%22)
-![php 7.2+](https://img.shields.io/badge/php-min%208.2-red.svg)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/marktaborosi/storage-navigator/blob/master/LICENSE)
+![php 8.2+](https://img.shields.io/badge/php-min%208.2-red.svg)
 
 # Table of Contents
 - [Getting Started](#storage-navigator)

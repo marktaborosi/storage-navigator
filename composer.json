@@ -31,5 +31,18 @@
       "email": "mark.taborosi@gmail.com"
     }
   ],
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "keywords": [
+    "storage",
+    "file browser",
+    "navigator",
+    "renderer",
+    "filesystem",
+    "flysystem",
+    "archive",
+    "zip",
+    "ftp",
+    "sftp",
+    "twig"
+  ]
 }

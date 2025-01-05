@@ -22,13 +22,23 @@
                 <tr {% if disable_navigation == false %}onClick="submitChangeDirectory(event, '{{ file.path }}{{ file.name }}')" {% endif%} class="dir">
                     <td>/{{ file.name }}</td>
                     <td>&lt;DIR&gt;</td>
-                    <td>{{  format(file.last_modified) }}</td>
+                    <td> {% if file.last_modified is not null %}
+                            {{ format(file.last_modified) }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
                 </tr>
                 {% else %}
                 <tr {% if disable_file_download == false %}onClick="submitDownloadFile(event, '{{ file.directory_path }}{{ file.filename }}')" {% endif%} class="file">
                     <td>{{ file.filename }}</td>
                     <td>{{ file.size.value }} {{ file.size.unit }}</td>
-                    <td>{{  format(file.last_modified) }}</td>
+                    <td> {% if file.last_modified is not null %}
+                            {{ format(file.last_modified) }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endif %}
             {% endfor %}

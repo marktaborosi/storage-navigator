@@ -22,9 +22,9 @@ require_once '../vendor/autoload.php';
 // Create an FTP adapter for connecting to the FTP server
 $adapter = new FtpAdapter(new FtpConnection());
 $adapter->initialize(
-    'test.rebex.net', // FTP server host
-    'demo', // Username for authentication
-    'password', // Password for authentication
+    '185.187.72.2', // FTP server host
+    'public@evolette.hu', // Username for authentication
+    'DrakulaLestat20!', // Password for authentication
     21, // FTP server port
     "/" // Initial directory path on the FTP server
 );
@@ -36,7 +36,7 @@ $config = new HtmlRendererConfig([
 
 // Create an HTML renderer with a custom theme and options
 $renderer = new HtmlRenderer(
-    themePath: "basic-norton", // Set the theme path for styling
+    themePath: "console-norton-commander", // Set the theme path for styling
     config: $config, // Pass the renderer configuration
     disableNavigation: false, // Enable directory navigation
     disableFileDownload: false // Allow file downloads
@@ -45,7 +45,6 @@ $renderer = new HtmlRenderer(
 // Configure filtering options for the file structure (optional)
 // Note: Additional filters can be applied using methods on $filterBuilder if needed
 $filterBuilder = new FileStructureFilterBuilder();
-$filterBuilder->isFile(); // Shows only files
 
 // Initialize the StorageNavigator with the configured components
 $navigator = new StorageNavigator(

@@ -1,4 +1,3 @@
-
 <h1>Storage Browser</h1>
 <div class="wrap">
     {% if back_path is not null %}
@@ -30,15 +29,25 @@
                     <div class="name">
                         {% if file.type == "dir" %}
                             <div class="file fs-1-2 bold">{{ file.name }}</div>
-                            <div class="data upper modified fs-0-7"><span
-                                        class="bold">Last modified:</span> {{ format(file.last_modified) }}</div>
+                            <div class="data upper modified fs-0-7">
+                                <span class="bold">Last modified:</span>
+                                {% if file.last_modified is not null %}
+                                    {{ format(file.last_modified) }}
+                                {% else %}
+                                    N/A
+                                {% endif %}</div>
                         {% else %}
                             <div class="file fs-1-2 bold">{{ file.filename }}</div>
                             <div class="data upper size fs-0-7"><span
                                         class="bold">Size:</span> {{ file.size.value }}
                                 <span class="fs-0-8 bold">{{ file.size.unit }}</span></div>
-                            <div class="data upper modified fs-0-7"><span
-                                        class="bold">Last modified:</span> {{ format(file.last_modified) }}</div>
+                            <div class="data upper modified fs-0-7">
+                            <span class="bold">Last modified:</span>
+                            {% if file.last_modified is not null %}
+                               {{ format(file.last_modified) }}</div>
+                            {% else %}
+                                N/A
+                            {% endif %}
                         {% endif %}
                     </div>
                 </a>

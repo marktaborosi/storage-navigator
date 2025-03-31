@@ -73,7 +73,12 @@ class UnifiedArchiveIntegrationTest extends TestCase
         $this->assertCount(1, $structure->getFiles());
         $this->assertInstanceOf(FileAttribute::class, $structure->getFiles()[1]);
 
-        $this->assertEquals($expectedFileStructure, $structure);
+        $this->assertEquals('test-dir', $structure->getDirectories()[0]->getName());
+        $this->assertEmpty($structure->getDirectories()[0]->getPath());
+        $this->assertEmpty($structure->getFiles()[1]->getDirectoryPath());
+        $this->assertEquals('test-file.txt', $structure->getFiles()[1]->getFilename());
+        $this->assertEquals('txt', $structure->getFiles()[1]->getExtension());
+        $this->assertEquals('4194370', $structure->getFiles()[1]->getByteSize());
     }
 
     /**

@@ -323,7 +323,7 @@ $navigator = new StorageNavigator(
 $navigator->display();
 ```
 
-### S3 Adapter Example (Google / AWS)
+### S3 Adapter Example
 
 ```php
 <?php

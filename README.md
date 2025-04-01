@@ -326,8 +326,9 @@ $navigator->display();
 ### S3 Adapter Example
 
 ```php
-<?php
 
+use Aws\S3\S3Client;
+use Marktaborosi\StorageNavigator\Adapters\S3\S3StorageAdapter;
 use Marktaborosi\StorageNavigator\Builders\FileStructureFilterBuilder;
 use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
@@ -335,9 +336,13 @@ use Marktaborosi\StorageNavigator\StorageNavigator;
 
 require_once '../vendor/autoload.php';
 
-// Create  (You can use the S3 Adapter which works for both Google and AWS)
-// You can use here GoogleCloudStorageAdapter() / AwsCloudStorageAdapter() if you want it more readable
-$s3Client = new \Aws\S3\S3Client([
+/**
+ * This script initializes and configures the StorageNavigator application with:
+ * - S3 Storage adapter.
+ * The StorageNavigator is then displayed in the browser.
+ */
+
+$s3Client = new S3Client([
     'region' => 'us-east-1',
     'version' => 'latest',
     'endpoint' => 'https://your-endpoint.com',
@@ -348,7 +353,9 @@ $s3Client = new \Aws\S3\S3Client([
     // 'use_path_style_endpoint' => true,  // If MinIo is used, this is necessary
 ]);
 
-$adapter = new \Marktaborosi\StorageNavigator\Adapters\AwsCloudStorageAdapter(
+// Create  (You can use the S3 Adapter which works for both Google and AWS)
+// You can use here GoogleCloudStorageAdapter() / AwsCloudStorageAdapter() if you want it more readable
+$adapter = new S3StorageAdapter(
     'test-bucket',
     $s3Client
 

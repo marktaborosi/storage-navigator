@@ -19,6 +19,7 @@
   - [Flysystem Adapter with Local Adapter Example](#flysystem-adapter-with-local-adapter-example)
   - [FTP Adapter Example](#ftp-adapter-example)
   - [SFTP Adapter Example](#sftp-adapter-example)
+  - [S3 Adapter Example (Google / AWS)](#s3-adapter-example)
   - [Unified Archive Adapter Example](#unified-archive-adapter-example)
   - [ZIP Archive Adapter Example](#zip-archive-adapter-example)
 - [Renderers](#renderers)
@@ -322,7 +323,7 @@ $navigator = new StorageNavigator(
 $navigator->display();
 ```
 
-### S3 Adapter Example
+### S3 Adapter Example (Google / AWS)
 
 ```php
 <?php

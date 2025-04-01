@@ -1,6 +1,5 @@
 <?php
 
-use Marktaborosi\StorageNavigator\Adapters\PHPNativeAdapter;
 use Marktaborosi\StorageNavigator\Builders\FileStructureFilterBuilder;
 use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
 use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
@@ -10,15 +9,28 @@ require_once '../vendor/autoload.php';
 
 /**
  * This script initializes and configures the StorageNavigator application with:
- * - A PHP native filesystem adapter.
- * - HTML rendering with a custom theme and configuration.
- * - Filtering options to display only files in the specified root directory.
- *
+ * - S3 Storage adapter.
  * The StorageNavigator is then displayed in the browser.
  */
 
-// Create a native PHP adapter for filesystem operations
-$adapter = new PHPNativeAdapter();
+// Create  (You can use the S3 Adapter which works for both Google and AWS)
+// You can use here GoogleCloudStorageAdapter() / AwsCloudStorageAdapter() if you want it more readable
+$s3Client = new \Aws\S3\S3Client([
+    'region' => 'us-east-1',
+    'version' => 'latest',
+    'endpoint' => 'https://your-endpoint.com',
+    'credentials' => [
+        'key' => 'your-client-key',
+        'secret' => 'your-client-secret',
+    ],
+    // 'use_path_style_endpoint' => true,  // If MinIo is used, this is necessary
+]);
+
+$adapter = new \Marktaborosi\StorageNavigator\Adapters\AwsCloudStorageAdapter(
+    'test-bucket',
+    $s3Client
+
+);
 
 // Configure HTML renderer settings
 $config = new HtmlRendererConfig([
@@ -27,7 +39,7 @@ $config = new HtmlRendererConfig([
 
 // Create an HTML renderer with a custom theme and options
 $renderer = new HtmlRenderer(
-    themePath: "console-norton-commander", // Set the theme path for styling
+    themePath: "basic-mac", // Set the theme path for styling
     config: $config, // Pass the renderer configuration
     disableNavigation: false, // Enable directory navigation
     disableFileDownload: false, // Allow file downloads
@@ -36,14 +48,12 @@ $renderer = new HtmlRenderer(
 // Configure a filter to display only files
 // Note: Additional filters can be applied using methods on $filterBuilder if needed
 $filterBuilder = new FileStructureFilterBuilder();
-$filterBuilder
-    ->isFile(); // Filter entries to include only files
 
 // Initialize the StorageNavigator with the configured components
 $navigator = new StorageNavigator(
     adapter: $adapter, // Pass the PHP native filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
-    rootPath: __DIR__ . "/storage/", // Set the root directory to browse
+    rootPath: "", // Set the root directory to browse
     filterBuilder: $filterBuilder, // Apply the configured file filter
 );
 

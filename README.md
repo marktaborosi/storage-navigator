@@ -91,6 +91,8 @@ Adapters are the backbone of the Storage Navigator library, enabling seamless in
 
 - **Native Adapter**: Leverages PHP's built-in `scandir` function for accessing and interacting with local file systems. Suitable for basic filesystem navigation.
 
+- **S3 Adapter**: S3 Storages like Google Cloud / AWS 
+
 - **Unified Archive Adapter**: Provides access to various archive types using the *wapmorgan\UnifiedArchive* library. This includes support for:
   - `.zip`
   - `.tar`
@@ -311,6 +313,66 @@ $filterBuilder->isFile(); // Include only files in the displayed structure
 // Initialize the StorageNavigator with the configured components
 $navigator = new StorageNavigator(
     adapter: $adapter, // Pass the SFTP adapter
+    renderer: $renderer, // Pass the HTML renderer
+    rootPath: "", // Set the root directory to browse
+    filterBuilder: $filterBuilder, // Apply the configured file filter
+);
+
+// Display the file structure in the browser
+$navigator->display();
+```
+
+### S3 Adapter Example
+
+```php
+<?php
+
+use Marktaborosi\StorageNavigator\Builders\FileStructureFilterBuilder;
+use Marktaborosi\StorageNavigator\Renderers\Config\HtmlRendererConfig;
+use Marktaborosi\StorageNavigator\Renderers\HtmlRenderer;
+use Marktaborosi\StorageNavigator\StorageNavigator;
+
+require_once '../vendor/autoload.php';
+
+// Create  (You can use the S3 Adapter which works for both Google and AWS)
+// You can use here GoogleCloudStorageAdapter() / AwsCloudStorageAdapter() if you want it more readable
+$s3Client = new \Aws\S3\S3Client([
+    'region' => 'us-east-1',
+    'version' => 'latest',
+    'endpoint' => 'https://your-endpoint.com',
+    'credentials' => [
+        'key' => 'your-client-key',
+        'secret' => 'your-client-secret',
+    ],
+    // 'use_path_style_endpoint' => true,  // If MinIo is used, this is necessary
+]);
+
+$adapter = new \Marktaborosi\StorageNavigator\Adapters\AwsCloudStorageAdapter(
+    'test-bucket',
+    $s3Client
+
+);
+
+// Configure HTML renderer settings
+$config = new HtmlRendererConfig([
+    'date_format' => "Y-m-d H:i:s", // Set the format for displaying timestamps
+]);
+
+// Create an HTML renderer with a custom theme and options
+$renderer = new HtmlRenderer(
+    themePath: "basic-mac", // Set the theme path for styling
+    config: $config, // Pass the renderer configuration
+    disableNavigation: false, // Enable directory navigation
+    disableFileDownload: false, // Allow file downloads
+);
+
+// Configure a filter to display only files
+// Note: Additional filters can be applied using methods on $filterBuilder if needed
+$filterBuilder = new FileStructureFilterBuilder();
+
+// Initialize the StorageNavigator with the configured components
+$navigator = new StorageNavigator(
+    adapter: $adapter, // Pass the PHP native filesystem adapter
     renderer: $renderer, // Pass the HTML renderer
     rootPath: "", // Set the root directory to browse
     filterBuilder: $filterBuilder, // Apply the configured file filter

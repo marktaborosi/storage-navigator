@@ -1,0 +1,12 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    tmpDir: .phpstan.cache
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Optional adapters: only referenced behind class_exists() checks.
+        -
+            message: '#(Aws\\S3\\S3ClientInterface|League\\Flysystem\\AwsS3V3\\AwsS3V3Adapter)#'
+            path: src/Storage/Storage.php

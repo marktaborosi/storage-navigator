@@ -34,7 +34,17 @@ final readonly class TwigRenderer implements RendererInterface
         ]);
         $this->twig->addFunction(new TwigFunction(
             't',
-            static fn (string $key, array $parameters = []): string => $translator->trans($key, $parameters),
+            static function (string $key, array $parameters = []) use ($translator): string {
+                // Template parameters can be anything; only scalars are meaningful in a message.
+                $scalars = [];
+                foreach ($parameters as $name => $value) {
+                    if (is_string($name) && (is_string($value) || is_int($value) || is_float($value))) {
+                        $scalars[$name] = $value;
+                    }
+                }
+
+                return $translator->trans($key, $scalars);
+            },
         ));
         $this->twig->addFunction(new TwigFunction(
             'icon',

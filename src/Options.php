@@ -89,12 +89,8 @@ final readonly class Options
     ) {
         $this->theme = $theme instanceof Theme ? $theme : Theme::named($theme);
         $this->authorize = $authorize === null ? null : $authorize(...);
-        $normalize = static fn (array $extensions): array => array_values(array_map(
-            static fn (string $extension): string => mb_strtolower(ltrim($extension, '.')),
-            $extensions,
-        ));
-        $this->allowedUploadExtensions = $allowedUploadExtensions === null ? null : $normalize($allowedUploadExtensions);
-        $this->deniedUploadExtensions = $normalize($deniedUploadExtensions);
+        $this->allowedUploadExtensions = $allowedUploadExtensions === null ? null : self::normalizeExtensions($allowedUploadExtensions);
+        $this->deniedUploadExtensions = self::normalizeExtensions($deniedUploadExtensions);
 
         if ($features->hasWriteFeature() && ($csrfSecret === null || strlen($csrfSecret) < 32)) {
             throw new ConfigurationException(
@@ -105,6 +101,24 @@ final readonly class Options
         if ($timezone !== null && !in_array($timezone, \DateTimeZone::listIdentifiers(), true)) {
             throw new ConfigurationException(sprintf('Unknown time zone "%s".', $timezone));
         }
+    }
+
+    /**
+     * @param array<mixed> $extensions
+     *
+     * @return list<string>
+     */
+    private static function normalizeExtensions(array $extensions): array
+    {
+        $normalized = [];
+        foreach ($extensions as $extension) {
+            if (!is_string($extension)) {
+                throw new ConfigurationException('Upload extensions must be strings.');
+            }
+            $normalized[] = mb_strtolower(ltrim($extension, '.'));
+        }
+
+        return $normalized;
     }
 
     /**

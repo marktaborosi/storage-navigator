@@ -27,6 +27,9 @@ final class HttpHelpersTest extends TestCase
         self::assertStringStartsWith('attachment; filename="download"', ContentDisposition::attachment('日本'));
     }
 
+    /**
+     * @param list<int>|null $expected
+     */
     #[DataProvider('ranges')]
     public function testByteRanges(string $header, ?array $expected): void
     {

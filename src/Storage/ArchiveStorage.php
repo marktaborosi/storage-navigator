@@ -130,6 +130,9 @@ final class ArchiveStorage implements StorageInterface
         }
 
         foreach ($names as $name) {
+            if (!is_string($name)) {
+                continue;
+            }
             try {
                 $path = Path::fromString($name);
             } catch (InvalidPathException) {

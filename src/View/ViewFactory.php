@@ -132,7 +132,7 @@ final readonly class ViewFactory
     }
 
     /**
-     * @param array<string, mixed> $cookies
+     * @param array<mixed> $cookies the request's cookies (for the visitor's colour scheme)
      *
      * @return array<string, mixed>
      */
@@ -151,7 +151,7 @@ final readonly class ViewFactory
     /**
      * Data shared by every page.
      *
-     * @param array<string, mixed> $cookies
+     * @param array<mixed>         $cookies
      * @param array<string, mixed> $data
      *
      * @return array<string, mixed>

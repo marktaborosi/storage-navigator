@@ -79,7 +79,7 @@ final class ResourceStream implements StreamInterface
 
     public function isSeekable(): bool
     {
-        return $this->resource !== null && (bool) (stream_get_meta_data($this->resource)['seekable'] ?? false);
+        return $this->resource !== null && stream_get_meta_data($this->resource)['seekable'];
     }
 
     public function seek(int $offset, int $whence = SEEK_SET): void
@@ -160,7 +160,7 @@ final class ResourceStream implements StreamInterface
     private function skipTo(int $offset): void
     {
         \assert($this->resource !== null);
-        if ((bool) (stream_get_meta_data($this->resource)['seekable'] ?? false)) {
+        if (stream_get_meta_data($this->resource)['seekable']) {
             if (fseek($this->resource, $offset) === 0) {
                 return;
             }

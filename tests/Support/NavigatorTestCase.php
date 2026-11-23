@@ -7,8 +7,11 @@ namespace Marktaborosi\StorageNavigator\Tests\Support;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use Marktaborosi\StorageNavigator\Features;
+use Marktaborosi\StorageNavigator\Filter\FilterInterface;
+use Marktaborosi\StorageNavigator\Limits;
 use Marktaborosi\StorageNavigator\Options;
 use Marktaborosi\StorageNavigator\Security\CsrfGuard;
+use Marktaborosi\StorageNavigator\Security\Operation;
 use Marktaborosi\StorageNavigator\Storage\FlysystemStorage;
 use Marktaborosi\StorageNavigator\Storage\StorageInterface;
 use Marktaborosi\StorageNavigator\StorageNavigator;
@@ -49,16 +52,30 @@ abstract class NavigatorTestCase extends TestCase
         return new StorageNavigator($storage ?? $this->storage(), $options ?? new Options());
     }
 
-    protected function writableOptions(mixed ...$overrides): Options
-    {
-        return new Options(...([
-            'features' => Features::all(),
-            'csrfSecret' => self::SECRET,
-        ] + $overrides));
+    /**
+     * Every feature enabled, with a valid CSRF secret.
+     *
+     * @param (callable(Operation, \Marktaborosi\StorageNavigator\Path\Path, ServerRequestInterface): bool)|null $authorize
+     */
+    protected function writableOptions(
+        Limits $limits = new Limits(),
+        bool $overwriteUploads = false,
+        ?FilterInterface $filter = null,
+        ?callable $authorize = null,
+    ): Options {
+        return new Options(
+            features: Features::all(),
+            limits: $limits,
+            filter: $filter,
+            csrfSecret: self::SECRET,
+            authorize: $authorize,
+            overwriteUploads: $overwriteUploads,
+        );
     }
 
     /**
      * @param array<string, string> $query
+     * @param array<string, string> $headers
      */
     protected function get(StorageNavigator $navigator, array $query = [], array $headers = []): ResponseInterface
     {
@@ -84,14 +101,11 @@ abstract class NavigatorTestCase extends TestCase
         return $navigator->handle($request);
     }
 
+    private static ?string $csrfToken = null;
+
     protected function csrfToken(): string
     {
-        static $token = null;
-        if ($token === null) {
-            $token = (new CsrfGuard(self::SECRET))->issue(new ServerRequest('GET', 'https://example.com/'))['token'];
-        }
-
-        return $token;
+        return self::$csrfToken ??= (new CsrfGuard(self::SECRET))->issue(new ServerRequest('GET', 'https://example.com/'))['token'];
     }
 
     protected function upload(string $name, string $content, int $error = UPLOAD_ERR_OK): UploadedFile
@@ -119,10 +133,17 @@ abstract class NavigatorTestCase extends TestCase
      */
     protected function json(ResponseInterface $response): array
     {
-        /** @var array<string, mixed> $data */
         $data = json_decode($this->body($response), true, 512, JSON_THROW_ON_ERROR);
+        if (!is_array($data)) {
+            self::fail('The response is not a JSON object.');
+        }
 
-        return $data;
+        $object = [];
+        foreach ($data as $key => $value) {
+            $object[(string) $key] = $value;
+        }
+
+        return $object;
     }
 
     protected function request(string $method, string $uri): ServerRequestInterface

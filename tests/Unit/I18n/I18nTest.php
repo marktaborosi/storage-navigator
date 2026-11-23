@@ -12,12 +12,23 @@ final class I18nTest extends TestCase
 {
     public function testEveryLocaleHasEveryKey(): void
     {
-        $english = array_keys(require dirname(__DIR__, 3) . '/resources/translations/en.php');
+        $english = self::keys('en');
         foreach (Translator::availableLocales() as $locale) {
-            $keys = array_keys(require dirname(__DIR__, 3) . '/resources/translations/' . $locale . '.php');
+            $keys = self::keys($locale);
             self::assertSame([], array_values(array_diff($english, $keys)), "Missing keys in $locale");
             self::assertSame([], array_values(array_diff($keys, $english)), "Unknown keys in $locale");
         }
+    }
+
+    /**
+     * @return list<array-key>
+     */
+    private static function keys(string $locale): array
+    {
+        $messages = require dirname(__DIR__, 3) . '/resources/translations/' . $locale . '.php';
+        self::assertIsArray($messages);
+
+        return array_keys($messages);
     }
 
     public function testParametersFallbackAndOverrides(): void

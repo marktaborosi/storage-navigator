@@ -361,7 +361,7 @@ Version 3 is a rewrite with a new API. The main changes:
 ```bash
 composer install
 composer test       # PHPUnit
-composer analyse    # PHPStan, level 8
+composer analyse    # PHPStan, highest level
 php -S localhost:8000 -t examples/demo
 ```
 

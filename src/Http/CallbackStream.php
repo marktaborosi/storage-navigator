@@ -63,6 +63,9 @@ final class CallbackStream implements StreamInterface
         $this->callback = null;
     }
 
+    /**
+     * @return resource
+     */
     public function detach()
     {
         $buffer = $this->buffer();

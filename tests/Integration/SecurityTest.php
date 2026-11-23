@@ -37,7 +37,9 @@ final class SecurityTest extends NavigatorTestCase
             \RecursiveIteratorIterator::CHILD_FIRST,
         );
         foreach ($iterator as $file) {
-            $file->isDir() && !$file->isLink() ? rmdir($file->getPathname()) : unlink($file->getPathname());
+            if ($file instanceof \SplFileInfo) {
+                $file->isDir() && !$file->isLink() ? rmdir($file->getPathname()) : unlink($file->getPathname());
+            }
         }
         rmdir($this->directory);
     }

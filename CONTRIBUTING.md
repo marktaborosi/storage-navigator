@@ -25,7 +25,7 @@ Every pull request must pass:
 
 ```bash
 composer test      # PHPUnit
-composer analyse   # PHPStan level 8
+composer analyse   # PHPStan, highest level
 node --check resources/assets/navigator.js
 ```
 

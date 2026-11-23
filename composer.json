@@ -76,8 +76,8 @@
         "preferred-install": "dist"
     },
     "scripts": {
-        "test": "phpunit",
-        "analyse": "phpstan analyse --memory-limit=1G",
+        "test": "@php vendor/bin/phpunit",
+        "analyse": "@php vendor/bin/phpstan analyse --memory-limit=1G",
         "check": [
             "@analyse",
             "@test"

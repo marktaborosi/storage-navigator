@@ -95,9 +95,9 @@ final class BrowsingTest extends NavigatorTestCase
     {
         $html = $this->body($this->get($this->navigator(new Options(title: '</script><script>alert(1)</script>'))));
 
-        preg_match('#<script type="application/json" id="sn-config">(.*?)</script>#s', $html, $match);
-        self::assertNotEmpty($match);
-        self::assertStringNotContainsString('<', $match[1]);
+        $json = preg_match('#<script type="application/json" id="sn-config">(.*?)</script>#s', $html, $match) === 1 ? $match[1] : null;
+        self::assertNotNull($json);
+        self::assertStringNotContainsString('<', $json);
     }
 
     public function testFilterHidesEntriesAndEverythingBelowThem(): void
@@ -132,7 +132,8 @@ final class BrowsingTest extends NavigatorTestCase
         $data = $this->json($this->get($this->navigator(), ['path' => 'docs'], ['Accept' => 'application/json']));
 
         self::assertSame('docs', $data['path']);
-        self::assertSame(['nested', 'logo.svg', 'page.html', 'report.pdf'], array_column($data['entries'], 'name'));
+        $entries = is_array($data['entries']) ? $data['entries'] : [];
+        self::assertSame(['nested', 'logo.svg', 'page.html', 'report.pdf'], array_column($entries, 'name'));
     }
 
     public function testDisabledNavigationKeepsUsersAtTheRoot(): void

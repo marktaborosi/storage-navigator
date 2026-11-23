@@ -1,0 +1,7 @@
+{
+  "name": "storage-navigator",
+  "version": "3.0.0",
+  "features": ["preview", "upload", "zip"],
+  "private": false,
+  "downloads": 12840
+}

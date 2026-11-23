@@ -1,48 +1,88 @@
 {
-  "name": "marktaborosi/storage-navigator",
-  "description": "A simple lightweight universal storage/file browser and navigator library with rendering options.",
-  "type": "library",
-  "require": {
-    "php": ">=8.2",
-    "twig/twig": "^3.11",
-    "league/flysystem": "^3.28",
-    "ext-zip": "*",
-    "ext-ftp": "*",
-    "phpseclib/phpseclib": "^3.0",
-    "wapmorgan/unified-archive": "^1.2",
-    "aws/aws-sdk-php": "^3.342"
-  },
-  "require-dev": {
-    "symfony/var-dumper": "^5.4",
-    "phpunit/phpunit": "^11.3",
-    "php-mock/php-mock": "^2.5",
-    "mockery/mockery": "^1.6"
-  },
-  "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "Marktaborosi\\StorageNavigator\\": "src/",
-      "Marktaborosi\\StorageNavigator\\Tests\\": "tests/"
-    }
-  },
-  "authors": [
-    {
-      "name": "Mark Taborosi",
-      "email": "mark.taborosi@gmail.com"
-    }
-  ],
-  "minimum-stability": "stable",
-  "keywords": [
-    "storage",
-    "file browser",
-    "navigator",
-    "renderer",
-    "filesystem",
-    "flysystem",
-    "archive",
-    "zip",
-    "ftp",
-    "sftp",
-    "twig"
-  ]
+    "name": "marktaborosi/storage-navigator",
+    "description": "Secure, themeable file browser for PHP: browse, preview, download and manage files on any Flysystem storage (local, S3, FTP, SFTP, ZIP) through a PSR-15 handler.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "file browser",
+        "file manager",
+        "storage",
+        "navigator",
+        "flysystem",
+        "psr-7",
+        "psr-15",
+        "s3",
+        "ftp",
+        "sftp",
+        "zip",
+        "archive",
+        "twig"
+    ],
+    "homepage": "https://github.com/marktaborosi/storage-navigator",
+    "authors": [
+        {
+            "name": "Mark Taborosi",
+            "email": "mark.taborosi@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/marktaborosi/storage-navigator/issues",
+        "source": "https://github.com/marktaborosi/storage-navigator",
+        "security": "https://github.com/marktaborosi/storage-navigator/security/policy"
+    },
+    "require": {
+        "php": "^8.3",
+        "league/flysystem": "^3.29",
+        "league/flysystem-local": "^3.29",
+        "league/mime-type-detection": "^1.15",
+        "nyholm/psr7": "^1.8",
+        "nyholm/psr7-server": "^1.1",
+        "psr/http-factory": "^1.1",
+        "psr/http-message": "^2.0",
+        "psr/http-server-handler": "^1.0",
+        "psr/log": "^3.0",
+        "twig/twig": "^3.14"
+    },
+    "require-dev": {
+        "league/flysystem-ftp": "^3.29",
+        "league/flysystem-memory": "^3.29",
+        "league/flysystem-sftp-v3": "^3.29",
+        "league/flysystem-ziparchive": "^3.29",
+        "maennchen/zipstream-php": "^3.1",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5",
+        "wapmorgan/unified-archive": "^1.2"
+    },
+    "suggest": {
+        "league/flysystem-aws-s3-v3": "Browse Amazon S3 or any S3-compatible storage (Storage::s3)",
+        "league/flysystem-ftp": "Browse FTP servers (Storage::ftp)",
+        "league/flysystem-sftp-v3": "Browse SFTP servers (Storage::sftp)",
+        "league/flysystem-ziparchive": "Browse and edit ZIP files (Storage::zip)",
+        "wapmorgan/unified-archive": "Browse RAR, 7z, TAR and other archives read-only (Storage::archive)",
+        "maennchen/zipstream-php": "Download whole folders as a streamed ZIP file (Features::zipDownload)"
+    },
+    "autoload": {
+        "psr-4": {
+            "Marktaborosi\\StorageNavigator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Marktaborosi\\StorageNavigator\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "check": [
+            "@analyse",
+            "@test"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

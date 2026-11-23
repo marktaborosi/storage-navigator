@@ -1,0 +1,8 @@
+# Storage settings
+storage:
+  driver: s3
+  bucket: company-files
+  region: eu-central-1
+uploads:
+  enabled: true
+  max_size: 64MB

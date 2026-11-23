@@ -1,0 +1,6 @@
+Release checklist
+
+[x] Tests pass on PHP 8.3 and 8.4
+[x] Changelog updated
+[ ] Tag the release
+[ ] Announce it

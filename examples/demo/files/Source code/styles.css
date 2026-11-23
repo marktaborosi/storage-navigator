@@ -1,0 +1,9 @@
+:root {
+  --accent: #0e7c66;
+}
+
+.button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--accent);
+}

@@ -1,7 +1,8 @@
 /vendor/
-/node_modules/
-/.idea
-/.vscode
-
-# Unit Test related
-/.phpunit.result.cache
+/composer.lock
+/.phpunit.cache/
+/.phpstan.cache/
+/.idea/
+/.vscode/
+/composer.local.json
+/composer.local.lock

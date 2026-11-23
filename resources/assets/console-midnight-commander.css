@@ -1,0 +1,17 @@
+/* Midnight Commander: a softer blue with white files and yellow headings. */
+:root {
+  --nc-bg: #1e4b8f;
+  --nc-fg: #e8ecf2;
+  --nc-strong: #ffffff;
+  --nc-head: #ffe066;
+  --nc-border: #c9d3e0;
+  --nc-select-bg: #44b4c8;
+  --nc-select-fg: #04141f;
+  --nc-bar-bg: #44b4c8;
+  --nc-bar-fg: #04141f;
+  --nc-key-fg: #ffffff;
+  --nc-key-bg: #0b1626;
+  --nc-dialog-bg: #c8ccd2;
+  --nc-dialog-fg: #04141f;
+  --nc-dialog-accent: #1e4b8f;
+}

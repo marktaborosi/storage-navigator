@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" data-scheme="{{ theme.scheme }}" data-theme="{{ theme.name }}">
+<head>
+  {% include 'shared/head.html.twig' %}
+  <title>{{ directory.isRoot ? title : directory.name ~ ' – ' ~ title }}</title>
+</head>
+<body class="sn sn-modern">
+{% include 'shared/icons.html.twig' %}
+<a class="sn-skip" href="#sn-entries">{{ t('a11y.skip') }}</a>
+
+<header class="sn-top">
+  <a class="sn-brand" href="{{ rootUrl }}">{{ icon('kind-folder', 'sn-brand__icon') }}<span>{{ title }}</span></a>
+
+  <form class="sn-search" method="get" role="search" data-sn-search-form>
+    {% if directory.path %}<input type="hidden" name="path" value="{{ directory.path }}">{% endif %}
+    {% if sort.state.sort is defined %}<input type="hidden" name="sort" value="{{ sort.state.sort }}"><input type="hidden" name="order" value="{{ sort.state.order }}">{% endif %}
+    <label class="sn-visually-hidden" for="sn-search-input">{{ t('search.label') }}</label>
+    {{ icon('search', 'sn-search__icon') }}
+    <input id="sn-search-input" type="search" name="q" value="{{ query }}" placeholder="{{ t('search.placeholder') }}" autocomplete="off" spellcheck="false" data-sn-search>
+    <kbd class="sn-search__key" aria-hidden="true">/</kbd>
+  </form>
+
+  <div class="sn-top__tools">
+    {% if theme.toggle %}
+    <button type="button" class="sn-icon-button" data-sn-action="scheme" aria-label="{{ t('scheme.toggle') }}" title="{{ t('scheme.toggle') }}">
+      {{ icon('contrast', 'sn-scheme-auto') }}{{ icon('sun', 'sn-scheme-light') }}{{ icon('moon', 'sn-scheme-dark') }}
+    </button>
+    {% endif %}
+    <div class="sn-segmented" role="group" aria-label="{{ t('view.label') }}">
+      <button type="button" class="sn-icon-button" data-sn-view="list" aria-pressed="{{ viewMode == 'list' ? 'true' : 'false' }}" aria-label="{{ t('view.list') }}" title="{{ t('view.list') }}">{{ icon('list') }}</button>
+      <button type="button" class="sn-icon-button" data-sn-view="grid" aria-pressed="{{ viewMode == 'grid' ? 'true' : 'false' }}" aria-label="{{ t('view.grid') }}" title="{{ t('view.grid') }}">{{ icon('grid') }}</button>
+    </div>
+    <button type="button" class="sn-icon-button sn-hide-touch" data-sn-action="shortcuts" aria-label="{{ t('action.shortcuts') }}" title="{{ t('action.shortcuts') }} (?)">{{ icon('keyboard') }}</button>
+  </div>
+</header>
+
+<main class="sn-main">
+  <div class="sn-folder-bar">
+    <nav class="sn-tabs" aria-label="{{ t('breadcrumb.label') }}">
+      <ol>
+        {% for crumb in breadcrumbs %}
+        <li class="sn-tab{{ crumb.current ? ' is-current' : '' }}">
+          {% if crumb.current %}
+          <span aria-current="page">{{ crumb.name }}</span>
+          {% else %}
+          <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </nav>
+    <div class="sn-folder-actions">
+      {% if urls.zip %}
+      <a class="sn-button" href="{{ urls.zip }}" download>{{ icon('zip') }}<span>{{ t('action.download_folder') }}</span></a>
+      {% endif %}
+      {% if can.mkdir %}
+      <button type="button" class="sn-button" data-sn-action="mkdir">{{ icon('folder-plus') }}<span>{{ t('action.new_folder') }}</span></button>
+      {% endif %}
+      {% if can.upload %}
+      <button type="button" class="sn-button sn-button--primary" data-sn-action="upload">{{ icon('upload') }}<span>{{ t('action.upload') }}</span></button>
+      {% endif %}
+    </div>
+  </div>
+
+  <section class="sn-panel" aria-labelledby="sn-folder-title">
+    <h1 id="sn-folder-title" class="sn-visually-hidden">{{ directory.name }}</h1>
+
+    <div class="sn-columns" aria-hidden="{{ viewMode == 'grid' ? 'true' : 'false' }}">
+      {% for column in ['name', 'size', 'modified'] %}
+      <a class="sn-column sn-column--{{ column }}{{ sort.field == column ? ' is-sorted' : '' }}" href="{{ sort.urls[column] }}" data-sort="{{ sort.field == column ? sort.direction : '' }}"
+         aria-label="{{ t('sort.by', {column: t('column.' ~ column)}) }}">{{ t('column.' ~ column) }}<span class="sn-sort-mark" aria-hidden="true"></span></a>
+      {% endfor %}
+      <span class="sn-column sn-column--actions"><span class="sn-visually-hidden">{{ t('column.actions') }}</span></span>
+    </div>
+
+    {% if entries is empty %}
+    <div class="sn-empty">
+      {% if query %}
+      <p class="sn-empty__title">{{ t('search.no_results', {query: query}) }}</p>
+      <a class="sn-button" href="{{ clearSearchUrl }}" data-sn-clear-search>{{ t('search.clear') }}</a>
+      {% else %}
+      <p class="sn-empty__title">{{ t('folder.empty') }}</p>
+      {% if can.upload %}<p class="sn-empty__hint">{{ t('folder.empty_upload') }}</p>{% endif %}
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <ul class="sn-entries" id="sn-entries" data-sn-entries data-view="{{ viewMode }}" role="list">
+      {% if parentUrl and not query %}
+      <li class="sn-entry sn-entry--parent" data-sn-parent>
+        <a class="sn-entry__link" href="{{ parentUrl }}" data-sn-entry-link>
+          <span class="sn-entry__icon">{{ icon('arrow-up') }}</span>
+          <span class="sn-entry__name">{{ t('action.parent') }}</span>
+        </a>
+      </li>
+      {% endif %}
+      {% for entry in entries %}
+      <li class="sn-entry sn-kind--{{ entry.kind }}" data-sn-entry
+          data-name="{{ entry.name }}" data-path="{{ entry.path }}" data-type="{{ entry.type }}" data-kind="{{ entry.kind }}"
+          {% if entry.preview %}data-preview="{{ entry.preview }}" data-raw="{{ entry.rawUrl }}"{% endif %}
+          {% if entry.downloadUrl %}data-download="{{ entry.downloadUrl }}"{% endif %}
+          {% if entry.zipUrl %}data-zip="{{ entry.zipUrl }}"{% endif %}
+          data-size="{{ entry.sizeHuman }}" data-modified="{{ entry.modifiedHuman }}"
+          {% if entry.can.rename %}data-can-rename{% endif %} {% if entry.can.delete %}data-can-delete{% endif %}>
+        {% if entry.url %}
+        <a class="sn-entry__link" href="{{ entry.url }}" data-sn-entry-link{% if not entry.isDirectory and entry.downloadUrl %} download{% endif %}>
+        {% else %}
+        <span class="sn-entry__link is-disabled" data-sn-entry-link tabindex="-1">
+        {% endif %}
+          <span class="sn-entry__icon">
+            {% if viewMode == 'grid' and entry.preview == 'image' %}<img class="sn-thumb" src="{{ entry.rawUrl }}" alt="" loading="lazy" decoding="async">{% endif %}
+            {{ icon('kind-' ~ entry.kind) }}
+          </span>
+          <span class="sn-entry__name" title="{{ entry.name }}">{{ entry.name }}</span>
+          <span class="sn-entry__size">{% if entry.isDirectory %}<span class="sn-entry__kind">{{ entry.kindLabel }}</span>{% else %}{{ entry.sizeHuman }}{% endif %}</span>
+          <span class="sn-entry__date">{% if entry.modified %}<time datetime="{{ entry.modifiedIso }}">{{ entry.modifiedHuman }}</time>{% endif %}</span>
+        {% if entry.url %}</a>{% else %}</span>{% endif %}
+        <button type="button" class="sn-icon-button sn-entry__more" data-sn-action="more" aria-expanded="false" aria-label="{{ t('action.more', {name: entry.name}) }}">{{ icon('more') }}</button>
+        <span class="sn-entry__actions">
+          {% if entry.preview %}<button type="button" class="sn-icon-button" data-sn-action="preview" aria-label="{{ t('action.preview_name', {name: entry.name}) }}" title="{{ t('action.preview') }}">{{ icon('eye') }}</button>{% endif %}
+          {% if entry.downloadUrl %}<a class="sn-icon-button" href="{{ entry.downloadUrl }}" download aria-label="{{ t('action.download_name', {name: entry.name}) }}" title="{{ t('action.download') }}">{{ icon('download') }}</a>{% endif %}
+          {% if entry.zipUrl %}<a class="sn-icon-button" href="{{ entry.zipUrl }}" download aria-label="{{ t('action.zip_name', {name: entry.name}) }}" title="{{ t('action.download_zip') }}">{{ icon('zip') }}</a>{% endif %}
+          {% if entry.can.rename %}<button type="button" class="sn-icon-button" data-sn-action="rename" aria-label="{{ t('action.rename_name', {name: entry.name}) }}" title="{{ t('action.rename') }}">{{ icon('pencil') }}</button>{% endif %}
+          {% if entry.can.delete %}<button type="button" class="sn-icon-button sn-icon-button--danger" data-sn-action="delete" aria-label="{{ t('action.delete_name', {name: entry.name}) }}" title="{{ t('action.delete') }}">{{ icon('trash') }}</button>{% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="sn-no-matches" data-sn-no-matches hidden>{{ t('search.no_matches') }}</p>
+  </section>
+
+  <footer class="sn-footer">
+    <p data-sn-summary>{{ summary.text }}{% if summary.files > 0 %}, {{ t('summary.total', {size: summary.size}) }}{% endif %}</p>
+    <p class="sn-footer__credit">{{ t('footer.powered', {name: 'Storage Navigator'}) }}</p>
+  </footer>
+</main>
+
+{% include 'shared/dialogs.html.twig' %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" data-scheme="{{ theme.scheme }}" data-theme="{{ theme.name }}">
+<head>
+  {% include 'shared/head.html.twig' %}
+  <title>{{ heading }} – {{ title }}</title>
+</head>
+<body class="sn sn-modern">
+{% include 'shared/icons.html.twig' %}
+<header class="sn-top">
+  <a class="sn-brand" href="{{ rootUrl }}">{{ icon('kind-folder', 'sn-brand__icon') }}<span>{{ title }}</span></a>
+</header>
+<main class="sn-main">
+  <section class="sn-panel sn-error" aria-labelledby="sn-error-title">
+    {{ icon('alert', 'sn-error__icon') }}
+    <h1 id="sn-error-title">{{ heading }}</h1>
+    <p>{{ message }}</p>
+    {% if backUrl %}<a class="sn-button sn-button--primary" href="{{ backUrl }}">{{ t('error.back') }}</a>{% endif %}
+    <p class="sn-error__code">{{ t('error.code', {status: status}) }}</p>
+  </section>
+</main>
+</body>
+</html>

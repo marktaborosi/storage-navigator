@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" data-scheme="dark" data-theme="{{ theme.name }}">
+<head>
+  {% include 'shared/head.html.twig' %}
+  <title>{{ directory.isRoot ? title : directory.name ~ ' – ' ~ title }}</title>
+</head>
+<body class="sn sn-console">
+{% include 'shared/icons.html.twig' %}
+{% set prompt = '/' ~ directory.path %}
+<div class="nc">
+  <header class="nc-menu">
+    <a class="nc-menu__title" href="{{ rootUrl }}">{{ title }}</a>
+    <nav class="nc-menu__path" aria-label="{{ t('breadcrumb.label') }}">
+      {%- for crumb in breadcrumbs -%}
+        {%- set label = loop.first ? '/' : crumb.name ~ (loop.last ? '' : '/') -%}
+        {%- if crumb.current -%}<span aria-current="page">{{ label }}</span>{%- else -%}<a href="{{ crumb.url }}">{{ label }}</a>{%- endif -%}
+      {%- endfor %}
+    </nav>
+    <button type="button" class="nc-menu__help" data-sn-action="shortcuts">{{ t('fkey.help') }} F1</button>
+  </header>
+
+  <main class="nc-panel" aria-labelledby="nc-panel-title">
+    <h1 class="nc-panel__title" id="nc-panel-title"><span>{{ prompt }}</span></h1>
+    <div class="nc-columns">
+      {% for column in ['name', 'size', 'modified'] %}
+      <a class="nc-column nc-column--{{ column }}{{ sort.field == column ? ' is-sorted' : '' }}" href="{{ sort.urls[column] }}" data-sort="{{ sort.field == column ? sort.direction : '' }}"
+         aria-label="{{ t('sort.by', {column: t('column.' ~ column)}) }}">{{ t('column.' ~ column) }}</a>
+      {% endfor %}
+    </div>
+
+    <ul class="nc-list" id="sn-entries" data-sn-entries data-view="list" role="list">
+      {% if parentUrl and not query %}
+      <li class="nc-entry nc-entry--dir" data-sn-parent>
+        <a class="nc-row" href="{{ parentUrl }}" data-sn-entry-link>
+          <span class="nc-name">..</span><span class="nc-size">{{ t('console.updir') }}</span><span class="nc-date"></span><span class="nc-time"></span>
+        </a>
+      </li>
+      {% endif %}
+      {% for entry in entries %}
+      <li class="nc-entry{{ entry.isDirectory ? ' nc-entry--dir' : '' }}" data-sn-entry
+          data-name="{{ entry.name }}" data-path="{{ entry.path }}" data-type="{{ entry.type }}" data-kind="{{ entry.kind }}"
+          {% if entry.preview %}data-preview="{{ entry.preview }}" data-raw="{{ entry.rawUrl }}"{% endif %}
+          {% if entry.downloadUrl %}data-download="{{ entry.downloadUrl }}"{% endif %}
+          {% if entry.zipUrl %}data-zip="{{ entry.zipUrl }}"{% endif %}
+          data-size="{{ entry.isDirectory ? entry.kindLabel : entry.sizeHuman }}" data-modified="{{ entry.modifiedHuman }}"
+          {% if entry.can.rename %}data-can-rename{% endif %} {% if entry.can.delete %}data-can-delete{% endif %}>
+        {% if entry.url %}<a class="nc-row" href="{{ entry.url }}" data-sn-entry-link{% if not entry.isDirectory and entry.downloadUrl %} download{% endif %}>{% else %}<span class="nc-row is-disabled" data-sn-entry-link tabindex="-1">{% endif %}
+          <span class="nc-name">{{ entry.name }}</span>
+          <span class="nc-size">{{ entry.isDirectory ? t('console.subdir') : entry.sizeHuman }}</span>
+          <span class="nc-date">{% if entry.modified %}<time datetime="{{ entry.modifiedIso }}">{{ entry.modifiedDate }}</time>{% endif %}</span>
+          <span class="nc-time">{{ entry.modifiedTime }}</span>
+        {% if entry.url %}</a>{% else %}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% if entries is empty %}
+    <p class="nc-empty">{{ query ? t('search.no_results', {query: query}) : t('folder.empty') }}</p>
+    {% endif %}
+    <p class="nc-empty" data-sn-no-matches hidden>{{ t('search.no_matches') }}</p>
+
+    <div class="nc-info" data-sn-info aria-live="polite">
+      <span class="nc-info__name" data-sn-info-field="name"></span>
+      <span class="nc-info__size" data-sn-info-field="size"></span>
+      <span class="nc-info__date" data-sn-info-field="modified"></span>
+    </div>
+    <div class="nc-summary" data-sn-summary>{{ summary.text }}{% if summary.files > 0 %}, {{ t('summary.total', {size: summary.size}) }}{% endif %}</div>
+  </main>
+
+  <form class="nc-command" method="get" role="search" data-sn-search-form>
+    {% if directory.path %}<input type="hidden" name="path" value="{{ directory.path }}">{% endif %}
+    {% if sort.state.sort is defined %}<input type="hidden" name="sort" value="{{ sort.state.sort }}"><input type="hidden" name="order" value="{{ sort.state.order }}">{% endif %}
+    <label for="sn-search-input">{{ prompt }}&gt;</label>
+    <input id="sn-search-input" type="search" name="q" value="{{ query }}" placeholder="{{ t('console.prompt') }} (/)" autocomplete="off" spellcheck="false" data-sn-search>
+  </form>
+
+  <nav class="nc-fkeys" aria-label="{{ t('action.shortcuts') }}">
+    {% set fkeys = [
+      {key: 'F1', action: 'shortcuts', label: t('fkey.help'), enabled: true},
+      {key: 'F2', action: 'zip', label: t('fkey.zip'), enabled: urls.zip is not null, url: urls.zip},
+      {key: 'F3', action: 'preview', label: t('fkey.view'), enabled: true},
+      {key: 'F4', action: '', label: '', enabled: false},
+      {key: 'F5', action: 'download', label: t('fkey.copy'), enabled: true},
+      {key: 'F6', action: 'rename', label: t('fkey.renmov'), enabled: can.rename},
+      {key: 'F7', action: 'mkdir', label: t('fkey.mkdir'), enabled: can.mkdir},
+      {key: 'F8', action: 'delete', label: t('fkey.delete'), enabled: can.delete},
+      {key: 'F9', action: 'upload', label: t('fkey.upload'), enabled: can.upload},
+      {key: 'F10', action: '', label: '', enabled: false},
+    ] %}
+    {% for fkey in fkeys %}
+    <button type="button" class="nc-fkey" data-sn-fkey="{{ fkey.key }}"{% if fkey.action %} data-sn-action="{{ fkey.action }}"{% endif %}{% if fkey.url is defined and fkey.url %} data-url="{{ fkey.url }}"{% endif %}{% if not fkey.enabled %} disabled{% endif %}>
+      <span class="nc-fkey__num">{{ fkey.key|slice(1) }}</span><span class="nc-fkey__label">{{ fkey.label }}</span>
+    </button>
+    {% endfor %}
+  </nav>
+</div>
+
+{% include 'shared/dialogs.html.twig' %}
+</body>
+</html>

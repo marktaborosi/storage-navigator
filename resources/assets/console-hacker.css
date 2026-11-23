@@ -1,0 +1,20 @@
+/* Hacker: green phosphor on black. */
+:root {
+  --nc-bg: #020a04;
+  --nc-fg: #29e05a;
+  --nc-strong: #b8ffc8;
+  --nc-head: #e6ffe9;
+  --nc-border: #1fae47;
+  --nc-select-bg: #29e05a;
+  --nc-select-fg: #020a04;
+  --nc-bar-bg: #0e3a1a;
+  --nc-bar-fg: #b8ffc8;
+  --nc-key-fg: #29e05a;
+  --nc-key-bg: #020a04;
+  --nc-dialog-bg: #0b2412;
+  --nc-dialog-fg: #b8ffc8;
+  --nc-dialog-accent: #29e05a;
+  --nc-danger-bg: #8a1010;
+  --nc-glow: 0 0 6px rgb(41 224 90 / 0.45);
+}
+.sn-field input { color: #020a04; caret-color: #020a04; }

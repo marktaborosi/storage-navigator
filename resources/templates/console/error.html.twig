@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" data-scheme="dark" data-theme="{{ theme.name }}">
+<head>
+  {% include 'shared/head.html.twig' %}
+  <title>{{ heading }} – {{ title }}</title>
+</head>
+<body class="sn sn-console">
+<div class="nc">
+  <header class="nc-menu">
+    <a class="nc-menu__title" href="{{ rootUrl }}">{{ title }}</a>
+  </header>
+  <main class="nc-panel nc-panel--error">
+    <section class="nc-alert" role="alert" aria-labelledby="nc-error-title">
+      <h1 id="nc-error-title">{{ heading }}</h1>
+      <p>{{ message }}</p>
+      <p class="nc-alert__code">{{ t('error.code', {status: status}) }}</p>
+      {% if backUrl %}<a class="nc-button" href="{{ backUrl }}">{{ t('error.back') }}</a>{% endif %}
+    </section>
+  </main>
+</div>
+</body>
+</html>

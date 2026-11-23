@@ -1,0 +1,119 @@
+{# Dialogs and live regions shared by every layout. The script opens them; without
+   JavaScript the page still lists, opens and downloads files. #}
+<dialog class="sn-dialog sn-preview" id="sn-preview" aria-labelledby="sn-preview-title">
+  <div class="sn-preview__bar">
+    <div class="sn-preview__title">
+      <h2 id="sn-preview-title" class="sn-preview__name"></h2>
+      <p class="sn-preview__meta"></p>
+    </div>
+    <div class="sn-preview__tools">
+      <button type="button" class="sn-icon-button" data-sn-preview-nav="-1" aria-label="{{ t('action.previous') }}" title="{{ t('action.previous') }}">{{ icon('chevron-left') }}</button>
+      <button type="button" class="sn-icon-button" data-sn-preview-nav="1" aria-label="{{ t('action.next') }}" title="{{ t('action.next') }}">{{ icon('chevron-right') }}</button>
+      <a class="sn-icon-button" data-sn-preview-open target="_blank" rel="noopener" href="#" aria-label="{{ t('action.open_new_tab') }}" title="{{ t('action.open_new_tab') }}">{{ icon('external') }}</a>
+      <a class="sn-icon-button" data-sn-preview-download href="#" aria-label="{{ t('action.download') }}" title="{{ t('action.download') }}">{{ icon('download') }}</a>
+      <button type="button" class="sn-icon-button" data-sn-close aria-label="{{ t('action.close') }}" title="{{ t('action.close') }} (Esc)">{{ icon('x') }}</button>
+    </div>
+  </div>
+  <div class="sn-preview__body" data-sn-preview-body tabindex="-1"></div>
+</dialog>
+
+{% if csrf %}
+<dialog class="sn-dialog sn-form-dialog" id="sn-mkdir" aria-labelledby="sn-mkdir-title">
+  <form method="post" action="{{ urls.mkdir }}" data-sn-form="mkdir">
+    <h2 id="sn-mkdir-title">{{ t('dialog.mkdir.title') }}</h2>
+    <input type="hidden" name="action" value="mkdir">
+    <input type="hidden" name="path" value="{{ directory.path }}">
+    <input type="hidden" name="_token" value="{{ csrf }}">
+    <label class="sn-field">
+      <span>{{ t('dialog.mkdir.label') }}</span>
+      <input type="text" name="name" required maxlength="255" autocomplete="off" spellcheck="false">
+    </label>
+    <p class="sn-form-error" data-sn-form-error role="alert" hidden></p>
+    <div class="sn-dialog__actions">
+      <button type="button" class="sn-button" data-sn-close>{{ t('action.cancel') }}</button>
+      <button type="submit" class="sn-button sn-button--primary">{{ t('action.create') }}</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="sn-dialog sn-form-dialog" id="sn-rename" aria-labelledby="sn-rename-title">
+  <form method="post" action="{{ urls.rename }}" data-sn-form="rename">
+    <h2 id="sn-rename-title">{{ t('dialog.rename.title') }}</h2>
+    <input type="hidden" name="action" value="rename">
+    <input type="hidden" name="path" value="">
+    <input type="hidden" name="_token" value="{{ csrf }}">
+    <label class="sn-field">
+      <span>{{ t('dialog.rename.label') }}</span>
+      <input type="text" name="name" required maxlength="255" autocomplete="off" spellcheck="false">
+    </label>
+    <p class="sn-form-error" data-sn-form-error role="alert" hidden></p>
+    <div class="sn-dialog__actions">
+      <button type="button" class="sn-button" data-sn-close>{{ t('action.cancel') }}</button>
+      <button type="submit" class="sn-button sn-button--primary">{{ t('action.rename') }}</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="sn-dialog sn-form-dialog" id="sn-delete" aria-labelledby="sn-delete-title">
+  <form method="post" action="{{ urls.delete }}" data-sn-form="delete">
+    <h2 id="sn-delete-title" data-sn-delete-title></h2>
+    <input type="hidden" name="action" value="delete">
+    <input type="hidden" name="path" value="">
+    <input type="hidden" name="_token" value="{{ csrf }}">
+    <p class="sn-dialog__text" data-sn-delete-text></p>
+    <p class="sn-form-error" data-sn-form-error role="alert" hidden></p>
+    <div class="sn-dialog__actions">
+      <button type="button" class="sn-button" data-sn-close>{{ t('action.cancel') }}</button>
+      <button type="submit" class="sn-button sn-button--danger">{{ t('action.delete') }}</button>
+    </div>
+  </form>
+</dialog>
+
+{% if can.upload %}
+<form method="post" action="{{ urls.upload }}" enctype="multipart/form-data" class="sn-upload-form" data-sn-upload-form hidden>
+  <input type="hidden" name="action" value="upload">
+  <input type="hidden" name="path" value="{{ directory.path }}">
+  <input type="hidden" name="_token" value="{{ csrf }}">
+  <input type="file" name="files[]" multiple data-sn-upload-input>
+</form>
+<div class="sn-dropzone" data-sn-dropzone hidden>
+  <div class="sn-dropzone__inner">
+    {{ icon('upload', 'sn-dropzone__icon') }}
+    <p>{{ t('upload.drop', {folder: directory.name}) }}</p>
+    <p class="sn-dropzone__hint">{{ t('upload.limit', {max: limits.maxUpload}) }}</p>
+  </div>
+</div>
+{% endif %}
+{% endif %}
+
+<dialog class="sn-dialog sn-shortcuts" id="sn-shortcuts" aria-labelledby="sn-shortcuts-title">
+  <h2 id="sn-shortcuts-title">{{ t('shortcuts.title') }}</h2>
+  <dl class="sn-shortcuts__list">
+    <div><dt><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></dt><dd>{{ t('shortcuts.move') }}</dd></div>
+    <div><dt><kbd>Enter</kbd></dt><dd>{{ t('shortcuts.open') }}</dd></div>
+    <div><dt><kbd>Space</kbd></dt><dd>{{ t('shortcuts.preview') }}</dd></div>
+    <div><dt><kbd>Backspace</kbd></dt><dd>{{ t('shortcuts.parent') }}</dd></div>
+    <div><dt><kbd>/</kbd></dt><dd>{{ t('shortcuts.search') }}</dd></div>
+    {% if theme.layout == 'console' %}
+    {% if urls.zip %}<div><dt><kbd>F2</kbd></dt><dd>{{ t('action.download_zip') }}</dd></div>{% endif %}
+    <div><dt><kbd>F3</kbd></dt><dd>{{ t('shortcuts.preview') }}</dd></div>
+    <div><dt><kbd>F5</kbd></dt><dd>{{ t('action.download') }}</dd></div>
+    {% if can.rename %}<div><dt><kbd>F6</kbd></dt><dd>{{ t('shortcuts.rename') }}</dd></div>{% endif %}
+    {% if can.mkdir %}<div><dt><kbd>F7</kbd></dt><dd>{{ t('shortcuts.mkdir') }}</dd></div>{% endif %}
+    {% if can.delete %}<div><dt><kbd>F8</kbd> <kbd>Delete</kbd></dt><dd>{{ t('shortcuts.delete') }}</dd></div>{% endif %}
+    {% if can.upload %}<div><dt><kbd>F9</kbd></dt><dd>{{ t('shortcuts.upload') }}</dd></div>{% endif %}
+    {% else %}
+    {% if can.rename %}<div><dt><kbd>F2</kbd></dt><dd>{{ t('shortcuts.rename') }}</dd></div>{% endif %}
+    {% if can.delete %}<div><dt><kbd>Delete</kbd></dt><dd>{{ t('shortcuts.delete') }}</dd></div>{% endif %}
+    {% if can.upload %}<div><dt><kbd>U</kbd></dt><dd>{{ t('shortcuts.upload') }}</dd></div>{% endif %}
+    {% if can.mkdir %}<div><dt><kbd>N</kbd></dt><dd>{{ t('shortcuts.mkdir') }}</dd></div>{% endif %}
+    {% endif %}
+    <div><dt><kbd>?</kbd></dt><dd>{{ t('shortcuts.help') }}</dd></div>
+  </dl>
+  <div class="sn-dialog__actions">
+    <button type="button" class="sn-button" data-sn-close>{{ t('action.close') }}</button>
+  </div>
+</dialog>
+
+<div class="sn-toasts" data-sn-toasts role="status" aria-live="polite"></div>
+<script type="application/json" id="sn-config">{{ json_script(client) }}</script>

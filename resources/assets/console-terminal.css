@@ -1,0 +1,20 @@
+/* Terminal: amber phosphor, like a VT220 with the amber screen. */
+:root {
+  --nc-bg: #140b00;
+  --nc-fg: #ffb02e;
+  --nc-strong: #ffd58a;
+  --nc-head: #fff0cf;
+  --nc-border: #c98510;
+  --nc-select-bg: #ffb02e;
+  --nc-select-fg: #140b00;
+  --nc-bar-bg: #3d2400;
+  --nc-bar-fg: #ffd58a;
+  --nc-key-fg: #ffb02e;
+  --nc-key-bg: #140b00;
+  --nc-dialog-bg: #2a1800;
+  --nc-dialog-fg: #ffd58a;
+  --nc-dialog-accent: #ffb02e;
+  --nc-danger-bg: #9a2a00;
+  --nc-glow: 0 0 5px rgb(255 176 46 / 0.4);
+}
+.sn-field input { color: #140b00; caret-color: #140b00; }

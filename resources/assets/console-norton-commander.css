@@ -1,0 +1,17 @@
+/* Norton Commander: the classic DOS blue. */
+:root {
+  --nc-bg: #0000a8;
+  --nc-fg: #55ffff;
+  --nc-strong: #ffffff;
+  --nc-head: #ffff55;
+  --nc-border: #55ffff;
+  --nc-select-bg: #00a8a8;
+  --nc-select-fg: #000000;
+  --nc-bar-bg: #00a8a8;
+  --nc-bar-fg: #000000;
+  --nc-key-fg: #ffffff;
+  --nc-key-bg: #000000;
+  --nc-dialog-bg: #a8a8a8;
+  --nc-dialog-fg: #000000;
+  --nc-dialog-accent: #0000a8;
+}

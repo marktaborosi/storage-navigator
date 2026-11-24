@@ -10,15 +10,22 @@ A secure, themeable file browser for PHP. Point it at a folder, an S3 bucket, an
 
 It is a single PSR-15 request handler: it works in plain PHP with one line, and in any framework that speaks PSR-7.
 
-![The modern theme](docs/screenshots/modern-light.png)
+![Folder view in the modern theme](docs/screenshots/modern-02-folder.webp)
 
-| Dark mode | Grid view and preview | Norton Commander theme |
+### The folder view in every theme
+
+| Modern | Modern, dark | Norton Commander |
 | --- | --- | --- |
-| ![Modern theme in dark mode](docs/screenshots/modern-dark.png) | ![Image preview](docs/screenshots/modern-preview.png) | ![Norton Commander theme](docs/screenshots/norton-commander.png) |
+| ![Modern theme](docs/screenshots/modern-01-root.webp) | ![Modern theme, dark](docs/screenshots/dark-01-folder.webp) | ![Norton Commander theme](docs/screenshots/norton-commander-01-folder.webp) |
+
+| Midnight Commander | Hacker | Terminal |
+| --- | --- | --- |
+| ![Midnight Commander theme](docs/screenshots/midnight-commander-01-folder.webp) | ![Hacker theme](docs/screenshots/hacker-01-folder.webp) | ![Terminal theme](docs/screenshots/terminal-01-folder.webp) |
 
 ## Contents
 
-- [Features](#features)
+- [What it can do](#what-it-can-do)
+- [A tour](#a-tour)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Using it in a framework](#using-it-in-a-framework)
@@ -33,17 +40,76 @@ It is a single PSR-15 request handler: it works in plain PHP with one line, and 
 - [Upgrading from 2.x](#upgrading-from-2x)
 - [Development](#development)
 
-## Features
+## What it can do
 
-- **Any storage** through [Flysystem](https://flysystem.thephpleague.com/): local disk, Amazon S3 and S3-compatible services, FTP(S), SFTP, ZIP files, plus read-only RAR, 7z and TAR archives.
-- **Browse**: folder path, live search, sorting, list and grid views with image thumbnails, full keyboard control.
-- **Preview** images, video and audio (with seeking), PDF, and text or source code with line numbers and highlighting, without downloading.
-- **Download** files, or whole folders as a streamed ZIP file.
-- **Manage** files: upload (drag and drop, progress), new folder, rename, delete. All off by default.
-- **Secure by default**: the root cannot be escaped, hidden files stay hidden, every limit and permission is enforced on the server, CSRF protection, a strict Content Security Policy.
-- **Themes**: a modern light and dark theme, and four retro console themes (Norton Commander, Midnight Commander, hacker green, amber terminal).
-- **English and Hungarian** interface; add your own language in one file.
-- No build step and no JavaScript dependencies. Browsing and downloads work without JavaScript too.
+| | What users get | Default |
+| --- | --- | --- |
+| **Navigate** | Folder path as clickable tabs, "Up one level", sorting by name, size or date, list and grid views, links you can bookmark and share, the Back button works | On |
+| **Search** | Live filter of the current folder while typing; also works without JavaScript | On |
+| **Open and preview** | Images, PDF, video and audio (with seeking), text and source code with line numbers and highlighting, without downloading; step to the previous or next file | On |
+| **Download files** | One click or one key; resumable (HTTP Range) | On |
+| **Download folders** | A whole folder as a ZIP file, streamed while it is built, with size and count limits | Off, needs `maennchen/zipstream-php` |
+| **Upload** | Button or drag and drop anywhere on the page, several files at once, progress bar, size and file type checks | Off |
+| **New folder, rename, delete** | Dialogs with clear errors; deleting asks for confirmation | Off |
+| **Keyboard** | Arrow keys, Enter, Space for preview, Backspace for the parent folder, `/` to search, F2 rename, Delete; F-keys in the console themes | On |
+| **Mobile** | Touch layout: search on its own row, actions behind a ⋯ button, full-screen preview | On |
+| **Look and language** | Light, dark or automatic modern theme, four retro console themes; English and Hungarian | Modern, English |
+| **Storages** | Local disk, Amazon S3 and compatible, FTP(S), SFTP, ZIP files, read-only RAR, 7z and TAR, any Flysystem adapter | Local disk |
+| **Permissions** | Switch every operation on or off, decide per user and per path with a callback, hide entries with filters; all enforced on the server | Read-only |
+
+Clicking a file opens its preview when the browser can show it, and downloads it otherwise (Word, Excel, archives …). Everything is protected the same way whichever theme is used: see [Security](#security).
+
+## A tour
+
+### Browse folders
+
+The path is drawn as folder tabs above the list; every tab is a link. Folders come first, and the column headings sort the list. The grid view shows thumbnails of images.
+
+| List with a selected row | Grid view |
+| --- | --- |
+| ![A selected row with its actions: preview, download, rename, delete](docs/screenshots/modern-03-selected.webp) | ![Grid view with image thumbnails](docs/screenshots/modern-04-grid.webp) |
+
+### Open and preview files
+
+Previews open over the list. The arrow keys or the ‹ › buttons step through the files of the folder; the toolbar opens the file in a new tab or downloads it.
+
+| Image | PDF |
+| --- | --- |
+| ![Image preview](docs/screenshots/modern-05-preview-image.webp) | ![PDF preview](docs/screenshots/modern-06-preview-pdf.webp) |
+| **Source code** | **Audio** |
+| ![Source code with line numbers and highlighting](docs/screenshots/modern-07-preview-code.webp) | ![Audio player](docs/screenshots/modern-09-preview-audio.webp) |
+
+### Search
+
+Typing in the search box filters the folder at once; `/` jumps to it from anywhere.
+
+![Live search](docs/screenshots/modern-10-search.webp)
+
+### Upload
+
+Drop files anywhere on the page, or use the Upload button. A progress bar shows while they upload; the page refreshes when they are in. Files are checked before anything is written: size limit, blocked file types (`.php` and other executables) and existing names.
+
+| Dropping files | Uploading |
+| --- | --- |
+| ![Drop zone](docs/screenshots/modern-13-upload-drop.webp) | ![Upload progress](docs/screenshots/modern-14-upload-progress.webp) |
+
+### New folder, rename and delete
+
+Rename selects the name without its extension, like a desktop file manager. Errors from the server, such as a name that is already taken, appear in the dialog.
+
+| New folder | Rename | Delete |
+| --- | --- | --- |
+| ![New folder dialog](docs/screenshots/modern-16-new-folder.webp) | ![Rename dialog](docs/screenshots/modern-18-rename.webp) | ![Delete confirmation](docs/screenshots/modern-20-delete.webp) |
+
+### Keyboard, console themes, phones and Hungarian
+
+| Keyboard shortcuts (`?`) | Norton Commander viewer (F3) |
+| --- | --- |
+| ![Keyboard shortcuts](docs/screenshots/modern-21-shortcuts.webp) | ![Norton Commander theme with the source viewer](docs/screenshots/norton-commander-03-preview-code.webp) |
+
+| Phone | Row actions on a phone | Preview on a phone | Hungarian interface |
+| --- | --- | --- | --- |
+| ![Phone layout](docs/screenshots/mobile-01-folder.webp) | ![Row actions behind the ⋯ button](docs/screenshots/mobile-02-actions.webp) | ![Full-screen preview](docs/screenshots/mobile-04-preview.webp) | ![Hungarian interface](docs/screenshots/hu-01-folder.webp) |
 
 ## Installation
 
@@ -266,9 +332,7 @@ filter: Filter::all(
 | `hacker` | Green phosphor |
 | `terminal` | Amber phosphor |
 
-| Midnight Commander | Hacker | Terminal |
-| --- | --- | --- |
-| ![Midnight Commander theme](docs/screenshots/midnight-commander.png) | ![Hacker theme](docs/screenshots/hacker.png) | ![Terminal theme](docs/screenshots/terminal.png) |
+Screenshots of every theme are at the [top of this page](#the-folder-view-in-every-theme).
 
 **Colours and fonts.** Every colour is a CSS custom property. Load an extra stylesheet that overrides them:
 

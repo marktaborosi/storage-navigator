@@ -93,7 +93,8 @@ return [
 
     'upload.drop' => 'Engedd el a fájlokat a feltöltéshez ide: „{folder}”',
     'upload.limit' => 'Fájlonként legfeljebb {max}',
-    'upload.progress' => '{count} fájl feltöltése… {percent}%',
+    'upload.progress_one' => '„{name}” feltöltése… {percent}%',
+    'upload.progress_other' => '{count} fájl feltöltése… {percent}%',
     'upload.none' => 'Válassz ki legalább egy fájlt.',
     'upload.too_large' => '„{name}” nagyobb a megengedett {max} méretnél.',
     'upload.too_large_server' => 'A feltöltés nagyobb, mint amit a szerver elfogad.',

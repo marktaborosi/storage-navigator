@@ -599,7 +599,12 @@
     for (let i = 0; i < files.length; i++) {
       data.append('files[]', files[i], files[i].name);
     }
-    const progress = toast(t('upload.progress', { count: files.length, percent: 0 }), { progress: true });
+    const progressText = function (percent) {
+      return files.length === 1
+        ? t('upload.progress_one', { name: files[0].name, percent: percent })
+        : t('upload.progress_other', { count: files.length, percent: percent });
+    };
+    const progress = toast(progressText(0), { progress: true });
     const request = new XMLHttpRequest();
     request.open('POST', uploadForm.getAttribute('action'));
     request.setRequestHeader('Accept', 'application/json');
@@ -607,7 +612,7 @@
     request.upload.addEventListener('progress', function (event) {
       if (event.lengthComputable && progress) {
         const fraction = event.loaded / event.total;
-        progress.update(t('upload.progress', { count: files.length, percent: Math.round(fraction * 100) }), fraction);
+        progress.update(progressText(Math.round(fraction * 100)), fraction);
       }
     });
     request.addEventListener('load', function () {

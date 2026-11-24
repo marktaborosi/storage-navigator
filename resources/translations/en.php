@@ -95,7 +95,8 @@ return [
 
     'upload.drop' => 'Drop files to upload them to “{folder}”',
     'upload.limit' => 'Up to {max} per file',
-    'upload.progress' => 'Uploading {count} files… {percent}%',
+    'upload.progress_one' => 'Uploading “{name}”… {percent}%',
+    'upload.progress_other' => 'Uploading {count} files… {percent}%',
     'upload.none' => 'Choose at least one file to upload.',
     'upload.too_large' => '“{name}” is larger than the {max} limit.',
     'upload.too_large_server' => 'The upload is larger than the server accepts.',

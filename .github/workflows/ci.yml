@@ -33,7 +33,7 @@ jobs:
           extensions: zip, ftp, mbstring, fileinfo
           coverage: none
 
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
 
@@ -53,7 +53,7 @@ jobs:
 
       - run: composer validate --strict
 
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@v4
 
       - run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
 

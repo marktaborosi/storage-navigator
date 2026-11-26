@@ -6,7 +6,7 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-## [3.0.0] - unreleased
+## [3.0.0] - 2026-11-26
 
 A rewrite. See [UPGRADE-3.0.md](UPGRADE-3.0.md) for migrating from 2.x.
 
@@ -41,16 +41,35 @@ A rewrite. See [UPGRADE-3.0.md](UPGRADE-3.0.md) for migrating from 2.x.
 - Strict Content Security Policy on every page; previews are sandboxed.
 
 ## [2.2.0] - 2025-04-01
-- AWS S3 and Google Cloud Storage adapters.
+
+### Added
+- Amazon S3 and Google Cloud Storage adapters.
+- Tests run on GitHub Actions.
+
+## [2.1.0] - 2025-01-05
+
+### Fixed
+- FTP servers that do not report modification times (`ftp_mdtm()`) no longer break the listing.
+
+## [2.0.3] - 2024-12-08
+
+### Fixed
+- File icons in the basic themes.
 
 ## [2.0.0] - 2024-12-06
-- Themes, filters and the console renderer.
+
+### Changed
+- `ActionHandler` renamed to `NavigationHandler`.
+- Themes, renderers and filters reworked; documentation expanded.
 
 ## [1.0.0] - 2024-12-03
+
 - First release.
 
 [Unreleased]: https://github.com/marktaborosi/storage-navigator/compare/v3.0.0...HEAD
 [3.0.0]: https://github.com/marktaborosi/storage-navigator/compare/v2.2.0...v3.0.0
-[2.2.0]: https://github.com/marktaborosi/storage-navigator/compare/v2.0.0...v2.2.0
-[2.0.0]: https://github.com/marktaborosi/storage-navigator/compare/v1.0.0...v2.0.0
+[2.2.0]: https://github.com/marktaborosi/storage-navigator/compare/2.1.0...v2.2.0
+[2.1.0]: https://github.com/marktaborosi/storage-navigator/compare/v2.0.3...2.1.0
+[2.0.3]: https://github.com/marktaborosi/storage-navigator/compare/v2.0.0...v2.0.3
+[2.0.0]: https://github.com/marktaborosi/storage-navigator/compare/v1.0.1...v2.0.0
 [1.0.0]: https://github.com/marktaborosi/storage-navigator/releases/tag/v1.0.0

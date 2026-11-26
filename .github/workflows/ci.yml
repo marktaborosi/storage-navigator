@@ -25,7 +25,7 @@ jobs:
           - php: '8.3'
             dependencies: lowest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -43,7 +43,7 @@ jobs:
     name: Static analysis and checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
